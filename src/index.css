@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.check-box {
+    @apply relative h-5 w-5 shrink-0 appearance-none rounded-sm border;
+}
+
+.check-box::after {
+    @apply absolute left-0 top-0 h-full w-full bg-[url('data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9JzMwMHB4JyB3aWR0aD0nMzAwcHgnICBmaWxsPSIjZmZmZmZmIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgdmVyc2lvbj0iMS4xIiB4PSIwcHgiIHk9IjBweCI+PHRpdGxlPmljb25fYnlfUG9zaGx5YWtvdjEwPC90aXRsZT48ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz48ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBmaWxsPSIjZmZmZmZmIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNi4wMDAwMDAsIDI2LjAwMDAwMCkiPjxwYXRoIGQ9Ik0xNy45OTk5ODc4LDMyLjQgTDEwLjk5OTk4NzgsMjUuNCBDMTAuMjI2Nzg5MSwyNC42MjY4MDE0IDguOTczMTg2NDQsMjQuNjI2ODAxNCA4LjE5OTk4Nzc5LDI1LjQgTDguMTk5OTg3NzksMjUuNCBDNy40MjY3ODkxNCwyNi4xNzMxOTg2IDcuNDI2Nzg5MTQsMjcuNDI2ODAxNCA4LjE5OTk4Nzc5LDI4LjIgTDE2LjU4NTc3NDIsMzYuNTg1Nzg2NCBDMTcuMzY2ODIyOCwzNy4zNjY4MzUgMTguNjMzMTUyOCwzNy4zNjY4MzUgMTkuNDE0MjAxNCwzNi41ODU3ODY0IEw0MC41OTk5ODc4LDE1LjQgQzQxLjM3MzE4NjQsMTQuNjI2ODAxNCA0MS4zNzMxODY0LDEzLjM3MzE5ODYgNDAuNTk5OTg3OCwxMi42IEw0MC41OTk5ODc4LDEyLjYgQzM5LjgyNjc4OTEsMTEuODI2ODAxNCAzOC41NzMxODY0LDExLjgyNjgwMTQgMzcuNzk5OTg3OCwxMi42IEwxNy45OTk5ODc4LDMyLjQgWiI+PC9wYXRoPjwvZz48L2c+PC9nPjwvc3ZnPg==')] bg-[length:40px] bg-center bg-no-repeat content-[''];
+}
+
+.check-box:checked::after {
+    @apply bg-unifae-green-1 rounded-sm;
+}
+
+.input-login {
+    @apply border border-collapse border-black w-full lg:w-[30vw] p-3 rounded-lg shadow-md
+}
+
+.input-error {
+    @apply border border-red-600 border-collapse w-full lg:w-[30vw] p-3 rounded-lg shadow-md
+}
+
+.input-login:focus {
+    @apply border-unifae-green-1 outline outline-1 outline-unifae-green-1
+}
+
+.input-modal {
+    @apply border border-collapse border-black w-full lg:w-[30vw] p-2 rounded-lg shadow-md
+}
+
+.input-modal:focus {
+    @apply border-unifae-green-1 outline outline-1 outline-unifae-green-1
+}
+
+.input-cadastro {
+    @apply border border-collapse border-black min-w-96 p-3 rounded-lg
+}
+
+.input-error-cadastro {
+    @apply border border-collapse border-red-600 min-w-96 p-3 rounded-lg
+}
+
+.input-search {
+    @apply border border-collapse border-black min-w-96 p-3 rounded-lg
+}
+
+.input-cadastro:focus {
+    @apply border-unifae-green-1 outline outline-1 outline-unifae-green-1
+}
+
+.input-placar {
+    @apply border border-collapse border-black [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none rounded p-2
+    w-12 h-12 text-xl text-center
+}
+
+.input-placar:focus {
+    @apply border border-collapse border-unifae-green-1 outline outline-1 outline-unifae-green-1
+}
+
+.active {
+    @apply bg-unifae-gray50-2 rounded-md
+}
+
+.user-dropdown {
+    @apply min-w-[150px] h-fit p-2 bg-zinc-700 rounded-[7px] text-white space-y-4 items-center flex flex-col
+}
+
+
+.btn-sm {
+    @apply w-[100px] p-2
+}
+
+.btn-lg {
+    @apply w-[200px] h-[50px]
+}
+
+.btn-green {
+    @apply bg-unifae-green-1 text-unifae-white-1 rounded-md hover:bg-unifae-green-2/90
+}
+
+.btn-gray {
+    @apply bg-unifae-gray-3 text-unifae-white-1 rounded-md hover:bg-unifae-black-1/60
+}
+
+.btn-edit {
+    @apply bg-sky-500 text-unifae-white-1 rounded-md hover:bg-sky-600
+}
+
+.btn-delete {
+    @apply bg-red-600 text-unifae-white-1 rounded-md hover:bg-red-700/80
+}
+
+.btn-confirm {
+    @apply bg-green-400 text-unifae-white-1 rounded-md hover:bg-green-500
+}
+
