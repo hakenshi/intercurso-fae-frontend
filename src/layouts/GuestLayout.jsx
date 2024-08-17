@@ -16,16 +16,16 @@ const guestLinks = [
         icon: faGamepad,
         text: 'Jogos'
     },
-    {
-        path: '/times-intercurso',
-        icon: faFlag,
-        text: 'Times'
-    },
-    {
-        path: '/placares',
-        icon: faTrophy,
-        text: 'Placares'
-    },
+    // {
+    //     path: '/times-intercurso',
+    //     icon: faFlag,
+    //     text: 'Times'
+    // },
+    // {
+    //     path: '/placares',
+    //     icon: faTrophy,
+    //     text: 'Placares'
+    // },
 
 ]
 
