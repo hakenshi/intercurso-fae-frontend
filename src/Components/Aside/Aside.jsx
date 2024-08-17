@@ -23,7 +23,7 @@ export const Aside = ({isAsideVisible, links}) => {
 
     return (
         <aside
-            className={`absolute md:relative h-[92.4vh] w-[200px] p-3 bg-zinc-700 transform ${isAsideVisible ? "translate-x-0" : "-translate-x-full"
+            className={`absolute md:relative w-[200px] p-3 bg-zinc-700 transform ${isAsideVisible ? "translate-x-0" : "-translate-x-full"
             } transition-transform duration-500 ease-in-out`}
         >
             <div className="flex flex-col justify-around h-[60%] ">

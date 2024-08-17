@@ -71,10 +71,6 @@ export default function Cadastro() {
             }
         }
 
-        // console.log(payload)
-        //
-        // return;
-
         axiosInstance.post('/cadastro', payload)
             .then(({data}) => {
                 setUser(data.user)
@@ -99,10 +95,10 @@ export default function Cadastro() {
         if (value === "Sim" && !responses.acceptResponsibility) {
             setIsTermosOpen(true)
         }
+
     };
 
     const handleForm = e => {
-
         e.preventDefault()
         if (
             !cursoRef.current.value ||

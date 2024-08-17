@@ -6,7 +6,11 @@ export default function LoginLayout() {
 
     const {token, user} = useStateContext()
 
-    return token ? <Navigate
-        to={user.tipo_usuario == 1 ? "/admin/dashboard" : user.tipo_usuario == 2 ? "/responsavel/jogos" : "/usuario/jogos"}
-        replace={true}/> : <Outlet/>
+    if (token && user){
+        const redirect = user.tipo_usuario === "1" ? "/admin/dashboard" : user.tipo_usuario === "2" ? "/responsavel/jogos" : "/usuario/jogos"
+        if (window.location.pathname === "/login" || window.location.pathname === "/cadastro"){
+            return <Navigate to={redirect} replace={true} />
+        }
+    }
+    return <Outlet/>
 }

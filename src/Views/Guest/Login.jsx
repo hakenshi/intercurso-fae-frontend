@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom"
+import {Link, Navigate} from "react-router-dom"
 import logoPadrao from "../../assets/logo-unifae-2021.png"
 import {useRef, useState} from "react"
 import axiosInstance from "../../helper/axios-instance"
@@ -12,7 +12,7 @@ export default function Login() {
 
     const emailRef = useRef(null)
     const senhaRef = useRef(null)
-    const {token, setUser, setSessionToken} = useStateContext()
+    const {token, user, setUser, setSessionToken} = useStateContext()
     const [errors, setError] = useState("")
     const {isAlertOpen, setIsAlertOpen} = useAlert()
 
@@ -23,12 +23,8 @@ export default function Login() {
             email: emailRef.current.value,
             senha: senhaRef.current.value,
         }
-
         axiosInstance.post('/login', payload)
             .then(({data}) => {
-
-                console.log(data)
-
                 setUser(data.user)
                 setSessionToken(data.token)
             })
@@ -44,7 +40,6 @@ export default function Login() {
     }
 
     return (
-
         <>
             {isAlertOpen && (
                 <AlertErro mensagem={errors.msg} onClose={() => setIsAlertOpen(false)} isAlertOpen={isAlertOpen}/>)}

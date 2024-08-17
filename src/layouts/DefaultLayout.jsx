@@ -42,15 +42,15 @@ export default function DefaultLayout({isMobile}) {
         setIsAsideVisible(a => !a);
     };
 
-    useEffect(() => {
-        if (sessionStorage.getItem('ACCESS_TOKEN')) {
-            axiosInstance.get('/user')
-                .then(({data}) => {
-                    setUser(data)
-                })
-        }
-
-    }, [navigate, setUser])
+    // useEffect(() => {
+    //     if (sessionStorage.getItem('ACCESS_TOKEN')) {
+    //         axiosInstance.get('/user')
+    //             .then(({data}) => {
+    //                 setUser(data)
+    //             })
+    //     }
+    //
+    // }, [navigate, setUser])
 
     const onLogout = (e) => {
         e.preventDefault()
@@ -69,11 +69,11 @@ export default function DefaultLayout({isMobile}) {
                 <AsideContext.Provider value={{isAsideVisible, toggleAsideVisibility}}>
                     <Aside links={userLinks} isAsideVisible={isAsideVisible}/>
                 </AsideContext.Provider>
-                {/* <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"}`}> */}
+                 <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"}`}>
                 <main className="flex justify-center w-full">
                     <Outlet/>
                 </main>
-                {/* </div> */}
+                 </div>
             </div>
         </div>
     );

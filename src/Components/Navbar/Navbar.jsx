@@ -5,7 +5,6 @@ import {Notficacao} from '../Notficacao';
 import {UserInfo} from '../UserInfo';
 import {images} from '../../assets';
 
-
 export const Navbar = ({isMobile, toggleAsideVisibility, id, onLogout, nome, foto, tipo}) => {
     return (
         <header className="bg-unifae-green-1 w-screen shadow-xl">

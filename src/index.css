@@ -1,6 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+aside {
+    height: calc(100vh - 72px);
+}
+main{
+    max-height: calc(100vh - 72px);
+}
 .check-box {
     @apply relative h-5 w-5 shrink-0 appearance-none rounded-sm border;
 }

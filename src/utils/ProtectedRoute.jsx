@@ -1,57 +1,38 @@
-import {useEffect, useState} from "react";
 import {useStateContext} from "../Contexts/ContextProvider"
-import axiosInstance from "../helper/axios-instance";
-import {Navigate, Outlet} from "react-router-dom";
-import {Oval} from "react-loader-spinner";
-import {faL} from "@fortawesome/free-solid-svg-icons";
-
-function roleMatch(role) {
-
-    console.log(role)
-
-    const roles = {
-        1: "admin",
-        2: "responsavel",
-        3: "usuario",
-    }
-
-    return roles[role]
-}
+import {Navigate, Outlet, useLocation} from "react-router-dom";
+import {useEffect, useState} from "react";
+import axiosInstance from "../helper/axios-instance.js";
+import {handleError} from "./handleError.js";
+import {Loading} from "../Components/Loading.jsx";
 
 export const ProtectedRoute = ({role}) => {
-    const {setUser, token, user} = useStateContext();
-    const [loading, setLoading] = useState(true);
+    const { token, user, setUser, setSessionToken} = useStateContext();
+    const location = useLocation()
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        if (token && !user) {
-            console.log('Fetching user data...');
+        if (sessionStorage.getItem('ACCESS_TOKEN')) {
             axiosInstance.get('/user')
                 .then(({data}) => {
-                    setUser(data);
-                    setLoading(false);
-                })
-                .catch(() => {
-                    setUser(null);
-                    setLoading(false);
-                });
-        } else {
-            setLoading(false);
+                    setUser(data)
+                }).catch(e => {
+                    handleError(e)
+            }).finally(() =>{
+                setIsLoading(false)
+            })
         }
-    }, [token, user, setUser]);
+    }, [setUser])
 
-    // if (loading) {
-    //     console.log('Loading user data...');
-    //     return <div>Loading...</div>;
-    // }
-
-    if (!token) {
-        return <Navigate to={"/login"} replace/>;
+    if (isLoading){
+        return <Loading/>
     }
 
-    // if (user && user.tipo_usuario != role) {
-    //     return <Navigate to={`/nao-autorizado`} replace />;
-    // }
+    if (token && Object.keys(user).length > 0 && user.tipo_usuario !== role){
+        return <Navigate to={"/nao-autorizado"} state={{from: location}} replace={true}/>
+    }
+    if(!token && Object.keys(user).length <= 0){
+        return <Navigate to={"/login"} state={{from: location}} replace={true} />
+    }
+    return <Outlet />
 
-    // console.log('User authorized, rendering route...');
-    return <Outlet/>;
 };

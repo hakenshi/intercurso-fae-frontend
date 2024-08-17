@@ -61,8 +61,6 @@ export default function Jogos() {
     }, [jogos, modalidades])
 
 
-    console.log(jogos, modalidades)
-
     const handleChangeJogos = e => {
 
         const titles = ["Encerrados", 'Próximos Jogos']

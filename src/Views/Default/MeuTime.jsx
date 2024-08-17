@@ -126,7 +126,7 @@ export const MeuTime = () => {
                                         </div>)}
                                         </div>
                                     </div>)}
-                </div> : "Você ainda não faz parte de nenhum time"}
+                </div> :<div className={"w-full h-[65vh] flex justify-center items-center"}><p>Você ainda não faz parte de nenhum time</p></div>}
         </>
     )
 }

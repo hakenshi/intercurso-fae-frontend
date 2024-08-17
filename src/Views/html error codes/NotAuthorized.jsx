@@ -3,9 +3,9 @@ import {useStateContext} from "../../Contexts/ContextProvider";
 
 const roleFinder = (role) => {
     const roles = {
-        1: "admin",
-        2: "responsavel",
-        3: "usuario",
+        1: "admin/dashboard",
+        2: "responsavel/jogos",
+        3: "usuario/jogos",
     }
 
     return roles[role]
@@ -14,8 +14,6 @@ const roleFinder = (role) => {
 export default function NotAuthorized() {
 
     const {user} = useStateContext()
-
-    console.log(user)
 
     return (
         <div className="w-full z-50 absolute bg-white h-full left-0 top-0 right-0 bottom-0">

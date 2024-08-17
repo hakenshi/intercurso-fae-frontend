@@ -51,7 +51,6 @@ const adminLinks = [
 
 ]
 
-
 export default function AdminLayout({isMobile}) {
     const [isAsideVisible, setIsAsideVisible] = useState(!isMobile);
     const {user, setUser, setSessionToken, token} = useStateContext()
@@ -61,17 +60,6 @@ export default function AdminLayout({isMobile}) {
     const toggleAsideVisibility = () => {
         setIsAsideVisible(a => !a);
     };
-
-    useEffect(() => {
-        if (token) {
-            axiosInstance.get('/user')
-                .then(({data}) => {
-                    setUser(data)
-                    // if(data.tipo_usuario == 1) navigate('/dashboard', {replace: true})
-                })
-        }
-
-    }, [navigate, setUser, token])
 
     const onLogout = (e) => {
         e.preventDefault()

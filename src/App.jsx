@@ -21,9 +21,9 @@ import LoginLayout from './layouts/LoginLayout.jsx';
 import GuestLayout from './layouts/GuestLayout.jsx';
 import {ProtectedRoute} from './utils/ProtectedRoute.jsx';
 import {useStateContext} from './Contexts/ContextProvider.jsx';
-import NotAuthorized from './Views/html error codes/NotAuthorized.jsx';
 import {AdminJogos} from './Views/Admin/AdminJogos.jsx';
 import {ResetPassword} from "./Views/Guest/ResetPassword.jsx";
+import NotAuthorized from "./Views/html error codes/NotAuthorized.jsx";
 
 
 export const App = () => {
@@ -35,10 +35,7 @@ export const App = () => {
         <Routes>
             <Route path='/' element={<GuestLayout/>}>
                 <Route index element={<Jogos/>}/>
-                {/*<Route path="jogos" element={<Jogos/>}/>*/}
-                <Route path="placares" element={<Placares/>}/>
-                <Route path="times-intercurso" element={<VerTimes/>}/>
-                {/* <Route path='nao-autorizado' element={<NotAuthorized />} /> */}
+                 <Route path='nao-autorizado' element={<NotAuthorized />} />
             </Route>
 
             <Route path="/" element={<LoginLayout/>}>
@@ -47,7 +44,7 @@ export const App = () => {
                 <Route path="redefinir-senha" element={<ResetPassword/>}/>
             </Route>
 
-            <Route element={<ProtectedRoute role={1}/>}>
+            <Route element={<ProtectedRoute role={"1"}/>}>
                 <Route path='/admin' element={<AdminLayout isMobile={isMobile}/>}>
                     <Route index path="dashboard" element={<Dashboard/>}/>
                     <Route path="usuarios" element={<Usuarios/>}/>
@@ -55,23 +52,19 @@ export const App = () => {
                     <Route path="times" element={<Times/>}/>
                     <Route path="jogos" element={<AdminJogos/>}/>
                     <Route path="meu-perfil" element={<Perfil/>}/>
-                    <Route path="configuracoes" element={<Configuracoes/>}/>
                 </Route>
-
             </Route>
-            <Route element={<ProtectedRoute role={2}/>}>
+
+            <Route element={<ProtectedRoute role={"2"}/>}>
                 <Route path='/responsavel' element={<ResponsavelLayout isMobile={isMobile}/>}>
                     <Route path="meus-times" element={<MeusTimes id={user.id}/>}/>
                     <Route path="times-intercurso" element={<MeuTime/>}/>
                     <Route path="jogos" element={<Jogos/>}/>
-                    <Route path="placares" element={<Placares/>}/>
-                    <Route path="times-intercurso" element={<VerTimes/>}/>
                     <Route path="meu-perfil" element={<Perfil/>}/>
-                    <Route path="configuracoes" element={<Configuracoes/>}/>
                 </Route>
             </Route>
 
-            <Route element={<ProtectedRoute role={3}/>}>
+            <Route element={<ProtectedRoute role={"3"}/>}>
                 <Route path='/usuario' element={<DefaultLayout isMobile={isMobile}/>}>
                     <Route path="meus-times" element={<MeuTime id={user.id}/>}/>
                     <Route path="jogos" element={<Jogos/>}/>
@@ -81,8 +74,8 @@ export const App = () => {
                     <Route path="configuracoes" element={<Configuracoes/>}/>
                 </Route>
             </Route>
+
             <Route path="*" element={<NotFound/>}/>
         </Routes>
-
     )
 }

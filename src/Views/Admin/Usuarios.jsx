@@ -293,7 +293,7 @@ export const Usuarios = () => {
                             </div>) :
                         (<Table.Root>
                             <Table.Head className="bg-unifae-green-4 rounded-xl text-white w-full"
-                                        titles={['Nome', 'Email', 'Curso', 'Telefone', 'Ra', 'Tipo de de usuário', '', '', '',]}/>
+                                        titles={["Fotos", 'Nome', 'Email', 'Curso', 'Telefone', 'Ra', 'Tipo de de usuário', '', '', '',]}/>
                             <Table.Body>
                                 {(input.trim() !== "" ? results : usuarios).map((response) => (
                                     <tr key={response.usuario.id} className="text-center">

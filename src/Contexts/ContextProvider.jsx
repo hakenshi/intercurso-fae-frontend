@@ -1,6 +1,6 @@
 import {createContext, useState, useContext} from "react";
 
-const StateContext = createContext({
+export const StateContext = createContext({
     user: null,
     token: null,
     setUser: () => {
@@ -11,10 +11,9 @@ const StateContext = createContext({
 
 export const ContextProvider = ({children}) => {
     const [user, setUser] = useState({});
-    const [token, setToken] = useState(sessionStorage.getItem('ACCESS_TOKEN') || null);
+    const [token, setToken] = useState(sessionStorage.getItem('ACCESS_TOKEN'));
     const setSessionToken = (token) => {
         setToken(token)
-
         if (token) {
             sessionStorage.setItem('ACCESS_TOKEN', token);
         } else {

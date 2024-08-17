@@ -113,8 +113,6 @@ export const Modalidades = () => {
                     }
                 })
         }
-
-        return
     }
 
 
@@ -222,7 +220,7 @@ export const Modalidades = () => {
 
                             : <p>Ainda não há nenhuma modalidade cadastrada no sistema</p>)}
                 </div>
-                {modalidades > length > 0 ?
+                {modalidades.length > 0 ?
                     <Paginate currentPage={currentPage} handlePageChange={handlePageChange} lastPage={lastPage}/> : ""}
             </div>
 
