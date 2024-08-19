@@ -33,7 +33,7 @@ export const App = () => {
 
     return (
         <Routes>
-            <Route path='/' element={<GuestLayout/>}>
+            <Route path='/' element={<GuestLayout isMobile={isMobile}/>}>
                 <Route index element={<Jogos/>}/>
                  <Route path='nao-autorizado' element={<NotAuthorized />} />
             </Route>
