@@ -82,7 +82,7 @@ export default function Jogos() {
     return (
         <>
             <div className="w-full flex flex-col items-center">
-                <div className="md:w-2/3 flex flex-col gap-3 p-5 justify-center items-center">
+                <div className="md:w-2/3 flex flex-col gap-3 p-5 mt-5 justify-center items-center">
                     <div className="flex w-full md:w-1/2 items-center justify-around gap-3 md:gap-0">
                         <ButtonCategoria onClick={() => setCategoira("")} icon={faGlobe} text={"Todas"} />
                         <ButtonCategoria onClick={() => setCategoira("1")} icon={faHeadset} text={"E-sports"} />
@@ -96,20 +96,20 @@ export default function Jogos() {
                 </div>
 
                 <div className="w-full flex md:flex-row flex-col items-center justify-center gap-5">
-                    <select onChange={handleChangeJogos} className="input-cadastro bg-white">
+                    <select onChange={handleChangeJogos} className="border border-collapse border-black w-11/12 md:w-96 p-3 rounded-lg bg-white">
                         <option value="">Escolha um filtro</option>
                         <option value="0">Encerrados</option>
                         <option value="1">Próximos Jogos</option>
                     </select>
-                    <select onChange={handleChangeGenero} className="input-cadastro bg-white">
+                    <select onChange={handleChangeGenero} className="border border-collapse border-black w-11/12 md:w-96 p-3 rounded-lg bg-white">
                         <option value="">Escolha um Gênero</option>
                         <option value="0">Masculino</option>
                         <option value="1">Feminino</option>
                     </select>
                 </div>
                 {jogos.length > 0 ? <><h2 className="text-center p-2 text-3xl uppercase font font-bold">{title ? title : "Jogos do Intercurso"}</h2>
-                    <div className="flex flex-col max-h-[65vh] overflow-y-scroll">
-                        <div className="p-5 flex gap-5 flex-wrap md:max-w-screen-xl">
+                    <div className="flex flex-col max-h-[65vh] overflow-y-scroll rounded-md">
+                        <div className="p-5 flex justify-center gap-5 flex-wrap md:max-w-screen-xl">
                             {filteredJogos.map(({ jogo, modalidade, placar, times }) => (
                                 <motion.div
                                     initial={{ opacity: 0, y: -20 }}
@@ -128,7 +128,7 @@ export default function Jogos() {
                                     ) : (
                                         <Card.Root key={jogo.id}>
                                             <Card.TimePlacar modalidade={modalidade} times={times} placar={placar} />
-                                            <Card.Local local={`Encerrado`} />
+                                            <p>Encerrado</p>
                                             <Card.Info data={`Vencedor: ${placar.time_vencedor.nome}`} />
                                         </Card.Root>
                                     )}

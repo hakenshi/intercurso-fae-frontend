@@ -223,7 +223,7 @@ export default function Cadastro() {
                     </div>
                     <form className="flex flex-col md:flex-row justify-center">
                         <div className="flex flex-col w-full md:w-1/2 gap-1 p-2">
-                            <div className="flex flex-col m-auto">
+                            <div className="flex flex-col">
                                 <label className="text-start text-lg" htmlFor="nome">Nome</label>
                                 <input ref={nomeRef}
                                        className={`${errors && errors.errors && errors.errors.nome ? 'input-error-cadastro' : 'input-cadastro'}`}
@@ -231,7 +231,7 @@ export default function Cadastro() {
                                 {errors && errors.errors ? errors.errors.nome &&
                                     <p className="p-1 text-xs text-black/80">{errors.errors.nome[0]}</p> : ""}
                             </div>
-                            <div className="flex flex-col m-auto">
+                            <div className="flex flex-col">
                                 <label className="text-start text-lg" htmlFor="email">E-mail</label>
                                 <input ref={emailRef}
                                        className={`${errors && errors.errors && errors.errors.email ? "input-error-cadastro" : "input-cadastro"}`}
@@ -240,7 +240,7 @@ export default function Cadastro() {
                                 {errors && errors.errors ? errors.errors.email &&
                                     <p className="p-1 text-xs text-black/80">{errors.errors.email[0]}</p> : ""}
                             </div>
-                            <div className="flex flex-col m-auto">
+                            <div className="flex flex-col">
                                 <label className="text-start text-lg" htmlFor="senha">Senha</label>
                                 <input ref={senhaRef}
                                        className={`${errors && errors.errors && errors.errors.senha ? "input-error-cadastro" : "input-cadastro"}`}
@@ -250,7 +250,7 @@ export default function Cadastro() {
                             </div>
                         </div>
                         <div className="flex flex-col w-full md:w-1/2 gap-1 p-2">
-                            <div className="flex flex-col m-auto">
+                            <div className="flex flex-col">
                                 <label className="text-start text-lg" htmlFor="ra">RA</label>
                                 <ReactInputMask mask={"99999-9"} ref={raRef}
                                                 className={`${errors && errors.errors && errors.errors.ra ? "input-error-cadastro" : "input-cadastro"}`}
@@ -258,10 +258,10 @@ export default function Cadastro() {
                                 {errors && errors.errors ? errors.errors.senha &&
                                     <p className="p-1 text-xs text-black/80">{errors.errors.ra[0]}</p> : ""}
                             </div>
-                            <div className="flex flex-col m-auto">
+                            <div className="flex flex-col">
                                 <label className="text-start text-lg" htmlFor="email">Curso</label>
                                 <select ref={cursoRef}
-                                        className={`${errors && errors.errors && errors.errors.id_curso ? "input-error-cadastro" : "input-cadastro"} bg-white w-80`}
+                                        className={`${errors && errors.errors && errors.errors.id_curso ? "input-error-cadastro" : "input-cadastro"} bg-white`}
                                         name="curso" id="curso">
                                     {cursos.map((curso, key) => <option key={key}
                                                                         value={curso.value}>{curso.curso}</option>)}
@@ -269,7 +269,7 @@ export default function Cadastro() {
                                 {errors && errors.errors ? errors.errors.senha &&
                                     <p className="p-1 text-xs text-black/80">{errors.errors.id_curso[0]}</p> : ""}
                             </div>
-                            <div className="flex flex-col m-auto">
+                            <div className="flex flex-col">
                                 <label className="text-start text-lg" htmlFor="confirm-password">Confirme sua
                                     senha</label>
                                 <input ref={confirmSenhaRef}
