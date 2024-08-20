@@ -19,7 +19,6 @@ export const Times = ({idResponsavel, url = "/times"}) => {
     const filterRef = useRef(null)
     const [paginateUrl, setPaginateUrl] = useState('/paginate/times/0')
     const {user} = useStateContext()
-
     const {isAlertOpen, setIsAlertOpen, handleClose} = useAlert()
     const [isEditAlertOpen, setIsEditAlertOpen] = useState(false);
     const [isJogadoresAlertOpen, setisJogadoresAlertOpen] = useState(false);
@@ -97,12 +96,12 @@ export const Times = ({idResponsavel, url = "/times"}) => {
             return;
         }
 
-        const responsavel = data.some(({usuario}) => usuario.id_responsavel === novoJogador);
+        // const responsavel = data.some(({usuario}) => usuario.id_responsavel === novoJogador);
 
-        if (responsavel) {
-            alert("Você não pode se adicionar no time");
-            return;
-        }
+        // if (responsavel) {
+        //     alert("Você não pode se adicionar no time");
+        //     return;
+        // }
 
         const jogadorExistente = editJogadores.some(jogador => jogador.id_usuario === novoJogador);
 

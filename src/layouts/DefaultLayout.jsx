@@ -42,16 +42,6 @@ export default function DefaultLayout({isMobile}) {
         setIsAsideVisible(a => !a);
     };
 
-    // useEffect(() => {
-    //     if (sessionStorage.getItem('ACCESS_TOKEN')) {
-    //         axiosInstance.get('/user')
-    //             .then(({data}) => {
-    //                 setUser(data)
-    //             })
-    //     }
-    //
-    // }, [navigate, setUser])
-
     const onLogout = (e) => {
         e.preventDefault()
         axiosInstance.post('/logout')
@@ -63,17 +53,17 @@ export default function DefaultLayout({isMobile}) {
     }
     return (
         <div className="flex flex-col">
-            <Navbar tipo={"/usuario"} foto={user.foto_perfil} id={user.id} isMobile={isMobile} nome={user.nome}
+            <Navbar tipo={"/responsavel"} foto={user.foto_perfil} id={user.id} isMobile={isMobile} nome={user.nome}
                     onLogout={onLogout} toggleAsideVisibility={toggleAsideVisibility}/>
             <div className="flex">
                 <AsideContext.Provider value={{isAsideVisible, toggleAsideVisibility}}>
                     <Aside links={userLinks} isAsideVisible={isAsideVisible}/>
                 </AsideContext.Provider>
-                 <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"}`}>
-                <main className="flex justify-center w-full">
-                    <Outlet/>
-                </main>
-                 </div>
+                <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"} max-h-[92.4vh] overflow-clip`}>
+                    <main className="flex justify-center items-center md:w-full w-screen">
+                        <Outlet/>
+                    </main>
+                </div>
             </div>
         </div>
     );

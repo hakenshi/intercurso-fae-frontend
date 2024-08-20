@@ -61,13 +61,13 @@ export default function GuestLayout({isMobile}) {
 
     return (
         <div className="flex flex-col">
-            <Navbar foto={user.foto_perfil} id={user.id} isMobile={isMobile} nome={user.nome} onLogout={onLogout}
-                    toggleAsideVisibility={toggleAsideVisibility}/>
+            <Navbar tipo={"/responsavel"} foto={user.foto_perfil} id={user.id} isMobile={isMobile} nome={user.nome}
+                    onLogout={onLogout} toggleAsideVisibility={toggleAsideVisibility}/>
             <div className="flex">
                 <AsideContext.Provider value={{isAsideVisible, toggleAsideVisibility}}>
                     <Aside links={guestLinks} isAsideVisible={isAsideVisible}/>
                 </AsideContext.Provider>
-                <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"}`}>
+                <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"} max-h-[92.4vh] overflow-clip`}>
                     <main className="flex justify-center items-center md:w-full w-screen">
                         <Outlet/>
                     </main>
