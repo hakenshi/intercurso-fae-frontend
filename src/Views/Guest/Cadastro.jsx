@@ -218,7 +218,7 @@ export default function Cadastro() {
             <section className="bg-[#262626] min-h-screen flex justify-center items-center">
                 <div className="size-full p-3 max-w-screen-lg  bg-white rounded-md">
                     <div className="flex items-center flex-col h-1/5 justify-center">
-                        <img src={logoPadrao} alt="unifae-logo" className="w-3/4"/>
+                        <img src={logoPadrao} alt="unifae-logo" className="w-1/3"/>
                         <span className="text-unifae-green-1 font-semibold">Intercurso</span>
                     </div>
                     <form className="flex flex-col md:flex-row justify-center">
