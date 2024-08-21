@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import {useStateContext} from "../../Contexts/ContextProvider"
 import {useNavigate} from "react-router-dom"
 import {useAlert} from "../../Components/hooks/useAlert"
@@ -17,6 +17,7 @@ import {faL} from "@fortawesome/free-solid-svg-icons"
 import {Modal} from "../../Components/Modal"
 import {Table} from "../../Components/Table"
 import {Display} from "../../Components/Display"
+import {Input} from "../../Components/Inputs/Input.jsx";
 
 export const Usuarios = () => {
 
@@ -25,7 +26,7 @@ export const Usuarios = () => {
         isConfirmAlertOpen, isErrorAlertOpen, setIsConfirmAlertOpen, setIsErrorAlertOpen
     } = useAlert()
     const {handleSearch, input, results} = useSearch("", "/search-usuarios")
-    const {data: usuarios, loading, handlePageChange, currentPage, lastPage, fetchData} = usePagiante("/search-usuarios")
+    const {data: usuarios, loading, handlePageChange, currentPage, lastPage, fetchData, setData} = usePagiante("/search-usuarios")
 
     const nomeRef = useRef(null);
     const emailRef = useRef(null);
@@ -33,8 +34,8 @@ export const Usuarios = () => {
     const raRef = useRef(null);
     const cursoRef = useRef(null);
     const confirmSenhaRef = useRef(null);
-    const telefoneRef = useRef(null);
     const tipoUsuarioRef = useRef(null)
+    const dataNascimentoRef = useRef(null)
 
     const [isEditModal, setIsEditModalOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,10 +53,53 @@ export const Usuarios = () => {
         setEditUsuario(null)
     }
 
+
+    const handleEditSubmit = e => {
+
+        e.preventDefault()
+
+        if (senhaRef.current.value !== confirmSenhaRef.current.value) {
+            setMensagem("As senhas não coincidem")
+            setIsErrorAlertOpen(true)
+            senhaRef.current.value = ''
+            confirmSenhaRef.current.value = ''
+            return
+        }
+
+        const payload = {
+            id_curso: cursoRef.current.value,
+            nome: nomeRef.current.value,
+            email: emailRef.current.value,
+            senha: senhaRef.current.value,
+            ra: raRef.current.value,
+            tipo_usuario: tipoUsuarioRef.current.value,
+            data_de_nascimento: dataNascimentoRef.current.value,
+        }
+
+        axiosInstance.patch(`/usuarios/${editUsuario.usuario.id}`, payload)
+            .then(({data}) => {
+                if (data) {
+                    setMensagem("Usuário Editado com sucesso!")
+                    fetchData()
+                }
+
+            })
+            .catch(error => {
+                const response = error.response
+                if (response) {
+                    setErrors(response.data.msg)
+                }
+            })
+            .finally(() => {
+                setIsEditModalOpen(false)
+                setIsAlertOpen(true)
+            })
+    }
+
     const handleSubmit = e => {
         e.preventDefault()
 
-        if (senhaRef.current.value != confirmSenhaRef.current.value) {
+        if (senhaRef.current.value !== confirmSenhaRef.current.value) {
             setMensagem("As senhas não coincidem")
             setIsErrorAlertOpen(true)
             return
@@ -66,32 +110,11 @@ export const Usuarios = () => {
             nome: nomeRef.current.value,
             email: emailRef.current.value,
             senha: senhaRef.current.value,
-            telefone: telefoneRef.current.value,
             ra: raRef.current.value,
-            tipo_usuario: tipoUsuarioRef.current.value ? tipoUsuarioRef.current.value : 3,
+            tipo_usuario: 3,
+            data_de_nascimento: dataNascimentoRef.current.value,
         }
-        
-        if (isEditModal) {
-            
-            axiosInstance.patch(`/usuarios/${editUsuario.usuario.id}`, payload)
-                .then(({data}) => {
-                    if (data) {
-                        setMensagem("Usuário Editado com sucesso!")
-                        fetchData()
-                    }
 
-                })
-                .catch(error => {
-                    const response = error.response
-                    if (response) {
-                        setErrors(response.data.msg)
-                    }
-                })
-                .finally(() => {
-                    setIsEditModalOpen(false)
-                    setIsAlertOpen(true)
-                })
-        } else {
             axiosInstance.post('/usuarios', payload)
                 .then(({data}) => {
                     if (data) {
@@ -110,7 +133,6 @@ export const Usuarios = () => {
                     setIsAlertOpen(true)
                 })
         }
-    }
 
     const handleDelete = (id) => {
         axiosInstance.delete(`/usuarios/${id}`)
@@ -188,33 +210,31 @@ export const Usuarios = () => {
                 <Modal.Form onSubmit={handleSubmit} texto="Cadastrar Usuário">
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="nome">Nome</label>
-                        <input ref={nomeRef} type="text" className="input-modal" name="nome"/>
+                        <input ref={nomeRef} type="text" className="input-modal" name="nome" placeholder={'Insira um nome'}/>
                     </div>
 
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="email">Email</label>
-                        <input ref={emailRef} type="text" className="input-modal" name="email"/>
+                        <input ref={emailRef} type="text" className="input-modal" name="email" placeholder={'Insira um email'}/>
                     </div>
 
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="senha">Senha</label>
-                        <input ref={senhaRef} type="password" className="input-modal" name="senha"/>
+                        <input ref={senhaRef} type="password" className="input-modal" name="senha" placeholder={'Insira uma senha'}/>
                     </div>
 
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="confirmar-senha">Confirmar Senha</label>
-                        <input ref={confirmSenhaRef} type="password" className="input-modal" name="confirmar-senha"/>
+                        <input ref={confirmSenhaRef} type="password" className="input-modal" name="confirmar-senha" placeholder={'Confirme a senha'}/>
                     </div>
 
-                    <div className="flex flex-col justify-center p-2">
-                        <label htmlFor="telefone">Telefone</label>
-                        <input ref={telefoneRef} type="text" className="input-modal" name="telefone"/>
-                    </div>
+                    {/*<div className="flex flex-col justify-center p-2">*/}
+                    {/*    <label htmlFor="ra">RA</label>*/}
+                    {/*    <input ref={raRef} type="text" className="input-modal" name="ra"/>*/}
+                    {/*</div>*/}
 
-                    <div className="flex flex-col justify-center p-2">
-                        <label htmlFor="ra">RA</label>
-                        <input ref={raRef} type="text" className="input-modal" name="ra"/>
-                    </div>
+                    <Input ref={raRef} value={editUsuario?.usuario.ra} className={'input-modal'} name={'ra'} label={'ra'} placholder={'Insira um RA'} mask={'99999-9'} />
+
 
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="curso">Curso</label>
@@ -223,11 +243,15 @@ export const Usuarios = () => {
                                                                   value={curso.value}>{curso.curso}</option>)}
                         </select>
                     </div>
+
+                    <Input ref={dataNascimentoRef} label={"Data de nascimento"} name={"data_de_nascimento"} className={"input-modal"} placholder={"Insira uma data de nascimento"} mask={"99/99/9999"} />
+
+
                 </Modal.Form>
             </Modal.Root>
 
             <Modal.Root isOpen={isEditModal} onClose={handleCloseEditModal}>
-                <Modal.Form onSubmit={handleSubmit} texto="Editar Usuário">
+                <Modal.Form onSubmit={handleEditSubmit} texto="Editar Usuário">
 
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="nome">Nome</label>
@@ -235,35 +259,32 @@ export const Usuarios = () => {
                                className="input-modal" name="nome"/>
                     </div>
                     <div className="flex flex-col justify-center p-2">
-                        <label htmlFor="quantidade-pariticpantes">Email</label>
+                        <label htmlFor="email">Email</label>
                         <input ref={emailRef} defaultValue={editUsuario ? editUsuario.usuario.email : ""} type="text"
-                               className="input-modal" name="quantidade-pariticpantes"/>
+                               className="input-modal" name="email"/>
                     </div>
                     <div className="flex flex-col justify-center p-2">
-                        <label htmlFor="quantidade-pariticpantes">Senha</label>
-                        <input ref={senhaRef} type="password" className="input-modal" name="quantidade-pariticpantes"/>
+                        <label htmlFor="senha">Senha</label>
+                        <input ref={senhaRef} type="password" className="input-modal" name="senha"/>
                     </div>
                     <div className="flex flex-col justify-center p-2">
-                        <label htmlFor="quantidade-pariticpantes">Confirmar Senha</label>
+                        <label htmlFor="confirmar-senha">Confirmar Senha</label>
                         <input ref={confirmSenhaRef} type="password" className="input-modal"
-                               name="quantidade-pariticpantes"/>
+                               name="confirmar-senha"/>
                     </div>
-                    <div className="flex flex-col justify-center p-2">
-                        <label htmlFor="quantidade-pariticpantes">Telefone</label>
-                        <input ref={telefoneRef} defaultValue={editUsuario ? editUsuario.usuario.telefone : ""}
-                               type="text" className="input-modal" name="quantidade-pariticpantes"/>
-                    </div>
-                    <div className="flex flex-col justify-center p-2">
-                        <label htmlFor="quantidade-pariticpantes">RA</label>
-                        <input ref={raRef} defaultValue={editUsuario ? editUsuario.usuario.ra : ""} type="text"
-                               className="input-modal" name="quantidade-pariticpantes"/>
-                    </div>
+                    {/*<div className="flex flex-col justify-center p-2">*/}
+                    {/*    <label htmlFor="quantidade-pariticpantes">RA</label>*/}
+                    {/*    <input ref={raRef} defaultValue={editUsuario ? editUsuario.usuario.ra : ""} type="text"*/}
+                    {/*           className="input-modal" name="quantidade-pariticpantes"/>*/}
+                    {/*</div>*/}
+
+                    <Input ref={raRef} value={editUsuario?.usuario.ra} className={'input-modal'} name={'ra'} label={'ra'} placholder={'Insira um RA'} mask={'99999-9'} />
 
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="quantidade-pariticpantes">Curso</label>
-                        <select ref={cursoRef} className={`input-modal bg-white w-[300px]`} name="curso" id="curso">
+                        <select defaultValue={editUsuario?.curso.id_curso} ref={cursoRef} className={`input-modal bg-white w-[300px]`} name="curso" id="curso">
                             {cursos.map((curso, index) => <option
-                                selected={editUsuario ? editUsuario.curso.nome_curso == curso.curso : ""} key={index}
+                                key={index}
                                 value={curso.value}>{curso.curso}</option>)}
                         </select>
                     </div>
@@ -277,6 +298,8 @@ export const Usuarios = () => {
                             <option value="1">Admin</option>
                         </select>
                     </div>
+
+                    <Input ref={dataNascimentoRef} label={"Data de nascimento"} value={new Date(editUsuario?.usuario.data_de_nascimento).toLocaleDateString('pt-BR')} name={"data_de_nascimento"} className={"input-modal"} placholder={"Insira uma data de nascimento"} mask={"99/99/9999"} />
                 </Modal.Form>
             </Modal.Root>
 
@@ -293,7 +316,7 @@ export const Usuarios = () => {
                             </div>) :
                         (<Table.Root>
                             <Table.Head className="bg-unifae-green-4 rounded-xl text-white w-full"
-                                        titles={["Fotos", 'Nome', 'Email', 'Curso', 'Telefone', 'Ra', 'Tipo de de usuário', '', '', '',]}/>
+                                        titles={["Fotos", 'Nome', 'Email', 'Curso', 'Ra', 'Tipo de de usuário', '', '', '',]}/>
                             <Table.Body>
                                 {(input.trim() !== "" ? results : usuarios).map((response) => (
                                     <tr key={response.usuario.id} className="text-center">
@@ -308,7 +331,7 @@ export const Usuarios = () => {
                                         <td className="p-5 text-pretty">{response.usuario.nome}</td>
                                         <td className="p-5 text-pretty">{response.usuario.email}</td>
                                         <td className="p-5 text-pretty">{response.curso.nome_curso}</td>
-                                        <td className="p-5 text-pretty">{!response.usuario.telefone ? "Sem Telefone" : response.usuario.telefone}</td>
+                                        <td className="p-5 text-pretty">{response.usuario.ra}</td>
                                         <td className="p-5 text-pretty">{response.usuario.ra}</td>
                                         <td className="p-5 text-pretty">{(response.usuario.tipo_usuario == 1) ? "Admin" : (response.usuario.tipo_usuario == 2) ? "Responsável" : "Usuário"}</td>
                                         <td className="p-5 text-pretty">

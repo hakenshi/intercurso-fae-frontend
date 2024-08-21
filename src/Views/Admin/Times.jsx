@@ -186,14 +186,16 @@ export const Times = ({idResponsavel, url = "/times"}) => {
     const handleSubmit = e => {
         e.preventDefault()
 
-        const refValue = responsavelRef.current ? responsavelRef.current.value : null
-
         const payload = {
             nome: nomeRef.current.value,
             id_modalidade: modalidadeRef.current.value,
-            id_responsavel: user.tipo_usuario === 2 ? idResponsavel : refValue,
+            id_responsavel: !responsavelRef.current ? idResponsavel : responsavelRef.current.value,
             status: "1",
         }
+
+        console.log(payload)
+
+        return
 
         if (isEditAlertOpen) {
             axiosInstance.put(`/times/${editTimes.time.id}`, payload)

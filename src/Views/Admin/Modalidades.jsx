@@ -60,6 +60,9 @@ export const Modalidades = () => {
             genero: generoRef.current.value,
             id_categoria: categoriaRef.current.value
         }
+
+        console.log(payload)
+
         if (isEditAlertOpen) {
             axiosInstance.put(`/modalidades/${editModalidade.id}`, payload)
                 .then(({data}) => {
@@ -163,7 +166,7 @@ export const Modalidades = () => {
                     </div>
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="nome">Gênero da modalidade</label>
-                        <select defaultValue={editModalidade ? editModalidade.genero : ""} ref={categoriaRef}
+                        <select defaultValue={editModalidade?.genero} ref={generoRef}
                                 className="input-modal bg-white" name="genero" id="genero">
                             <option value="">Selecione um gênero</option>
                             <option value="0">Masculino</option>
@@ -172,7 +175,7 @@ export const Modalidades = () => {
                     </div>
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="nome">Categoria da modalidade</label>
-                        <select defaultValue={editModalidade ? editModalidade.categoria.id : ""} ref={categoriaRef}
+                        <select defaultValue={editModalidade?.categoria.id} ref={categoriaRef}
                                 className="input-modal bg-white" name="genero" id="genero">
                             <option value="">Selecione uma categoria</option>
                             {categoria.map(categoria => <option value={categoria.id}
