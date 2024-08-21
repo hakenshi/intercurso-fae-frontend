@@ -44,7 +44,7 @@ export default function Login() {
             {isAlertOpen && (
                 <AlertErro mensagem={errors.msg} onClose={() => setIsAlertOpen(false)} isAlertOpen={isAlertOpen}/>)}
             <div className=" bg-[#262626] min-h-screen flex justify-center items-center">
-                <div className="md:w-1/2 bg-white rounded-md lg:w-[33vw] p-3 md:p-5 lg:p-10">
+                <div className="w-screen md:w-1/2 bg-white rounded-md lg:w-[33vw] p-3 md:p-5 lg:p-10">
                     <div className="flex items-center flex-col h-[15vh] justify-center">
                         <img src={logoPadrao} alt="unifae-logo" className="w-3/4"/>
                         <span className="text-unifae-green-1 font-semibold">Intercurso</span>
