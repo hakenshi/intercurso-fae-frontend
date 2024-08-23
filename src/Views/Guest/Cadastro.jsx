@@ -78,7 +78,7 @@ export default function Cadastro() {
 
             })
             .catch(error => {
-                console.log(error)
+               setError(error)
             })
             .finally(() => {
                 setIsOpen(false)
