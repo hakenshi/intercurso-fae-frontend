@@ -11,7 +11,6 @@ export default function usePagiante(apiUrl) {
 
     const fetchData = useCallback((page = currentPage) => {
         setLoading(true)
-        setLoading(true)
         axiosInstance.get(`${apiUrl}?page=${currentPage}`)
             .then(response => {
                 setData(response.data.data)
