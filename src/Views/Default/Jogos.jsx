@@ -40,15 +40,18 @@ export default function Jogos() {
         const fetchJogos = () => {
             axiosInstance.get("/jogos")
                 .then(({ data }) => {
-                    setJogos(data.data)
+                    if(data.data.length > 0){
+                        setJogos(data.data)
+                    }
                 })
                 .catch(e => handleError(e))
         }
         const fetchModalidades = () => {
             axiosInstance.get("/modalidades")
-                .then(({ data }) => {
-                    setModalidades(data.data)
-
+                .then(({ data }) => {                    
+                    if(data.data.length > 0){
+                        setModalidades(data.data)
+                    }
                 })
                 .catch(e => handleError(e))
         }
@@ -58,7 +61,7 @@ export default function Jogos() {
             fetchModalidades()
             setLoading(false)
         }
-    }, [jogos, modalidades])
+    }, [])
 
 
     const handleChangeJogos = e => {
