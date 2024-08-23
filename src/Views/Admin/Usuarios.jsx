@@ -299,7 +299,7 @@ export const Usuarios = () => {
                         </select>
                     </div>
 
-                    <Input ref={dataNascimentoRef} label={"Data de nascimento"} value={new Date(editUsuario?.usuario.data_de_nascimento).toLocaleDateString('pt-BR')} name={"data_de_nascimento"} className={"input-modal"} placholder={"Insira uma data de nascimento"} mask={"99/99/9999"} />
+                    <Input ref={dataNascimentoRef} label={"Data de nascimento"} value={new Date(editUsuario?.usuario.data_de_nascimento + "T00:00:00").toLocaleDateString('pt-BR')} name={"data_de_nascimento"} className={"input-modal"} placholder={"Insira uma data de nascimento"} mask={"99/99/9999"} />
                 </Modal.Form>
             </Modal.Root>
 
