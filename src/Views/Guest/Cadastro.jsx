@@ -18,6 +18,8 @@ export default function Cadastro() {
     const cursoRef = useRef(null);
     const confirmSenhaRef = useRef(null);
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const [responses, setResponses] = useState({
         question1: '',
         question2: '',
@@ -37,6 +39,8 @@ export default function Cadastro() {
     const [isTermosOpen, setIsTermosOpen] = useState(false)
     const handleSubmit = e => {
         e.preventDefault()
+        
+        setIsLoading(true)
 
         if (senhaRef.current.value !== confirmSenhaRef.current.value) {
             setError("As senhas não coincidem!")
@@ -75,14 +79,15 @@ export default function Cadastro() {
             .then(({data}) => {
                 setUser(data.user)
                 setSessionToken(data.token)
-
+                setIsLoading(false)
             })
             .catch(error => {
-               setError(error.response.data)
+                setError(error.response.data)
             })
             .finally(() => {
                 setIsOpen(false)
                 setIsTermosOpen(false)
+                setIsLoading(false)
             })
     }
 
@@ -285,7 +290,7 @@ export default function Cadastro() {
                         <p className="p-2">Já tem conta? <Link to={"/login"}
                                                                className="text-unifae-green-1 font-semibold"> Clique
                             aqui</Link></p>
-                        <button type="submit" onClick={handleForm} className="btn-lg btn-green">Entrar</button>
+                        <button disabled={isLoading} type="submit" onClick={handleForm} className="btn-lg btn-green">{isLoading ? "Enviando..." : "Fazer Cadastro"}</button>
                     </div>
                 </div>
             </section>

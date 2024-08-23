@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Modal } from "..";
 import { ProfileImage } from "../../ProfileImage";
 
-export const JogadoresModal = ({ data, isOpen, handleClose }) => {
+export const JogadoresModal = ({ data, isOpen, handleClose }) => {    
 
     if (isOpen)
         return (

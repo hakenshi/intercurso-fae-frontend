@@ -14,9 +14,11 @@ export default function Login() {
     const senhaRef = useRef(null)
     const {token, user, setUser, setSessionToken} = useStateContext()
     const [errors, setError] = useState("")
+    const [loading, setLoading] = useState(false)
     const {isAlertOpen, setIsAlertOpen} = useAlert()
 
     const handleSubmit = (e) => {
+        setLoading(true)
         e.preventDefault()
 
         const payload = {
@@ -25,12 +27,14 @@ export default function Login() {
         }
         axiosInstance.post('/login', payload)
             .then(({data}) => {
+                setLoading(false)
                 setUser(data.user)
                 setSessionToken(data.token)
             })
             .catch(error => {
                 const response = error.response
                 if (response) {
+                    setLoading(false)
                     setError(response.data)
                 }
                 if (response.data.msg) {
@@ -67,7 +71,7 @@ export default function Login() {
                                 <p className="px-2 py-1 text-xs text-black/80">{errors.errors.senha[0]}</p> : ""}
                         </div>
                         <p>Esqueceu sua senha? <Link to={'/redefinir-senha'} className="text-unifae-green-1 font-bold">Clique aqui</Link></p>
-                        <button className="btn-lg btn-green">Entrar</button>
+                        <button className="btn-lg btn-green">{loading ? "Enviando..." : "Entrar"}</button>
                         <p>Ainda não tem conta? <Link to={"/cadastro"} className="text-unifae-green-1 font-bold">Clique
                             aqui</Link></p>
                     </form>

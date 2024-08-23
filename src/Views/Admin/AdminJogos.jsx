@@ -79,7 +79,7 @@ export const AdminJogos = () => {
             idJogo,
             idProximoJogo,
             placar,
-            times
+            times,
         }))
     }
 
@@ -125,6 +125,8 @@ export const AdminJogos = () => {
     }
 
     const handleEditJogos = data => {
+        
+
         setIsOpen('editar')
         setTime1(() => data.times.time1.id)
         setTime2(() => data.times.time2.id)
@@ -320,10 +322,10 @@ export const AdminJogos = () => {
                         </div>
                         <div className="flex flex-col justify-center p-2">
                             <label htmlFor="modalidade">Fase do jogo</label>
-                            <select ref={faseRef} defaultValue={editJogos.fase.id ?? ""}
+                            <select ref={faseRef} defaultValue={editJogos.jogo.fase.id ?? ""}
                                     className='input-modal bg-white' name="modalidade" id="modalidade">
                                 <option value="">Selecione uma fase</option>
-                                {fases.map(fase => (
+                                {fases?.map(fase => (
                                     <option key={fase.id} value={fase.id}>{fase.nome}</option>))}
                             </select>
                         </div>
