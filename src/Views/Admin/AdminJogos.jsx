@@ -97,7 +97,8 @@ export const AdminJogos = () => {
             data_jogo: `${dataRef.current.value} ${horaRef.current.value}`,
             local: localRef.current.value,
             id_modalidade: modalidadeRef.current.value,
-            status: "1"
+            status: "1",
+            id_fase: faseRef.current.value
         }
         handleRequest(url, method, payload)
             .then(({data}) => {
