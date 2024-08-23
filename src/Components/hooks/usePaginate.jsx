@@ -26,7 +26,6 @@ export default function usePagiante(apiUrl) {
 
     const handlePageChange = (page) => {
         setCurrentPage(page)
-        fetchData(page)
     }
 
     return {data, setData, currentPage, lastPage, loading, handlePageChange, fetchData}
