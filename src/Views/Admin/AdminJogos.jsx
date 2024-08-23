@@ -320,7 +320,7 @@ export const AdminJogos = () => {
                         </div>
                         <div className="flex flex-col justify-center p-2">
                             <label htmlFor="modalidade">Fase do jogo</label>
-                            <select ref={modalidadeRef} defaultValue={editJogos.fase.id ?? ""}
+                            <select ref={faseRef} defaultValue={editJogos.fase.id ?? ""}
                                     className='input-modal bg-white' name="modalidade" id="modalidade">
                                 <option value="">Selecione uma fase</option>
                                 {fases.map(fase => (
@@ -363,7 +363,7 @@ export const AdminJogos = () => {
                         </div>
                         <div className="flex flex-col justify-center p-2">
                             <label htmlFor="modalidade">Fase do jogo</label>
-                            <select ref={modalidadeRef} className='input-modal bg-white' name="modalidade"
+                            <select ref={faseRef} className='input-modal bg-white' name="modalidade"
                                     id="modalidade">
                                 <option value="">Selecione uma fase</option>
                                 {fases.map(fase => (
