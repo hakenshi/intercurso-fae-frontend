@@ -1,5 +1,6 @@
 {
     "rewrites": [
-        {"source": "/(.*)", "destination": "/"}
+        {"source": "/(.*)", "destination": "/"},
+        {"source":"/api/(.*)", "destination":"http://ec2-15-228-226-77.sa-east-1.compute.amazonaws.com"}
     ]
 }

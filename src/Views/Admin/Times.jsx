@@ -193,10 +193,6 @@ export const Times = ({idResponsavel, url = "/times"}) => {
             status: "1",
         }
 
-        console.log(payload)
-
-        return
-
         if (isEditAlertOpen) {
             axiosInstance.put(`/times/${editTimes.time.id}`, payload)
                 .then(({data}) => {
