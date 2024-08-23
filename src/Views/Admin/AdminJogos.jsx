@@ -24,6 +24,7 @@ export const AdminJogos = () => {
     const {data: jogos, setData, currentPage, lastPage, handlePageChange, loading, fetchData} = usePagiante(url)
     const {setMensagem, mensagem} = useAlert()
     const [modalidades, setModalidades] = useState([])
+    const [fases, setFases] = useState([])
     const [editPlacar, setEditPlacar] = useState({
         idJogo: null,
         idProximoJogo: null,
@@ -42,7 +43,7 @@ export const AdminJogos = () => {
     const timeVencedorRef = useRef(null)
     const placarTime1Ref = useRef(null)
     const placarTime2Ref = useRef(null)
-
+    const faseRef = useRef(null)
 
     const [time1, setTime1] = useState(null)
     const [time2, setTime2] = useState(null)
@@ -59,10 +60,17 @@ export const AdminJogos = () => {
 
         };
 
-        if (modalidades.length == 0){
-            fetchModalidades()
+        const fetchFases = async () => {
+            const {data} = await axiosInstance.get('/fases')
+                        
+            data ? setFases(data) : ''
         }
-    }, [modalidades]);
+
+        if (modalidades.length == 0 && fases.length == 0){
+            fetchModalidades()
+            fetchFases()
+        }
+    }, [fases, modalidades]);
 
     const handleEditPlacar = (idJogo, idProximoJogo, placar, times) => {
 
@@ -309,6 +317,15 @@ export const AdminJogos = () => {
                                     <option key={modalidade.id} value={modalidade.id}>{modalidade.nome}</option>))}
                             </select>
                         </div>
+                        <div className="flex flex-col justify-center p-2">
+                            <label htmlFor="modalidade">Fase do jogo</label>
+                            <select ref={modalidadeRef} defaultValue={editJogos.fase.id ?? ""}
+                                    className='input-modal bg-white' name="modalidade" id="modalidade">
+                                <option value="">Selecione uma fase</option>
+                                {fases.map(fase => (
+                                    <option key={fase.id} value={fase.id}>{fase.nome}</option>))}
+                            </select>
+                        </div>
                     </Modal.Form>
                 </Modal.Root>
             )}
@@ -341,6 +358,15 @@ export const AdminJogos = () => {
                                 <option value="">Selecione uma modalidade</option>
                                 {modalidades.map(modalidade => (
                                     <option key={modalidade.id} value={modalidade.id}>{modalidade.nome}</option>))}
+                            </select>
+                        </div>
+                        <div className="flex flex-col justify-center p-2">
+                            <label htmlFor="modalidade">Fase do jogo</label>
+                            <select ref={modalidadeRef} className='input-modal bg-white' name="modalidade"
+                                    id="modalidade">
+                                <option value="">Selecione uma fase</option>
+                                {fases.map(fase => (
+                                    <option key={fase.id} value={fase.id}>{fase.nome}</option>))}
                             </select>
                         </div>
                     </Modal.Form>
