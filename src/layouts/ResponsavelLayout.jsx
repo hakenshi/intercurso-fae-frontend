@@ -1,10 +1,11 @@
-import {createContext, useState} from "react";
+import {createContext, useRef, useState} from "react";
 import {faFlag, faGamepad, faUserGroup} from "@fortawesome/free-solid-svg-icons";
 import {Outlet, useNavigate} from "react-router-dom";
 import {useStateContext} from "../Contexts/ContextProvider";
 import axiosInstance from "../helper/axios-instance";
 import {Aside} from "../Components/Aside/Aside";
 import {Navbar} from "../Components/Navbar/Navbar";
+import { useClickOutSide } from "../Components/hooks/useClickOutside";
 
 // Criando o contexto
 const AsideContext = createContext();
@@ -31,6 +32,12 @@ export default function ResponsavelLayout({isMobile}) {
     const [isAsideVisible, setIsAsideVisible] = useState(!isMobile);
     const {user, setUser, setSessionToken} = useStateContext()
 
+    const asideRef = useClickOutSide(() => {
+        if(isMobile && isAsideVisible){
+            setIsAsideVisible(false)
+        }
+    })
+
     const navigate = useNavigate()
 
     const toggleAsideVisibility = () => {
@@ -46,6 +53,7 @@ export default function ResponsavelLayout({isMobile}) {
                 navigate("/login", {replace: true})
             })
     }
+        
 
     return (
         <div className="flex flex-col">
@@ -53,7 +61,7 @@ export default function ResponsavelLayout({isMobile}) {
                     onLogout={onLogout} toggleAsideVisibility={toggleAsideVisibility}/>
             <div className="flex">
                 <AsideContext.Provider value={{isAsideVisible, toggleAsideVisibility}}>
-                    <Aside links={responsavelLinks} isAsideVisible={isAsideVisible}/>
+                    <Aside ref={asideRef} links={responsavelLinks} isAsideVisible={isAsideVisible}/>
                 </AsideContext.Provider>
                 <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"} max-h-[92.4vh] overflow-clip`}>
                     <main className="flex justify-center items-center md:w-full w-screen">

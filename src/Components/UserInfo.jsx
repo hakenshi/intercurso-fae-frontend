@@ -201,8 +201,8 @@ export const UserInfo = ({ nome, logout, foto, tipo }) => {
                 {nome && <div
                     className={`absolute top-11 right-0 overflow-hidden transition-all duration-[400ms] ${isOpen ? "max-h-96 ease-in" : "max-h-0 ease-out"}`}>
                     <div className="w-full flex justify-center p-4">
-                        <div className="user-dropdown">
-                            <span className=" flex w-full text-lg items-center gap-5 p-3">
+                        <div className="user-dropdown z-10">
+                            <span className=" flex z-10 w-full text-lg items-center gap-5 p-3">
                                 <ProfileImage className={"w-10 h-10 rounded-full object-cover"} fotoPerfil={foto} />
                                 {nome.split(' ')[0]} </span>
                             <button onClick={(e) => { e.stopPropagation(); setIsOpen(false); setIsProfileOpen(true) }} className=" flex w-full text-lg items-center gap-3 p-3 hover:bg-unifae-gray50-2 hover:rounded-md">
@@ -213,9 +213,6 @@ export const UserInfo = ({ nome, logout, foto, tipo }) => {
                                 <FontAwesomeIcon
                                     icon={faCog} /> Configurações
                             </button>
-                            {/* <button onClick={() => setIsEditModalOpen(true)} className=" flex w-full text-lg items-center gap-3 p-3 hover:bg-unifae-gray50-2 hover:rounded-md">
-                                <FontAwesomeIcon icon={faGear} /> Configurações
-                            </button> */}
                             {nome && <button onClick={logout}
                                 className="cursor-pointer flex w-full text-lg items-center gap-3 p-3 hover:bg-unifae-gray50-2 hover:rounded-md"> <FontAwesomeIcon
                                     icon={faSignOut} />  Logout </button>}

@@ -46,8 +46,7 @@ export const App = () => {
 
             <Route element={<ProtectedRoute role={"1"}/>}>
                 <Route path='/admin' element={<AdminLayout isMobile={isMobile}/>}>
-                    <Route index path="dashboard" element={<Dashboard/>}/>
-                    <Route path="usuarios" element={<Usuarios/>}/>
+                    <Route index path="usuarios" element={<Usuarios/>}/>
                     <Route path="modalidades" element={<Modalidades/>}/>
                     <Route path="times" element={<Times/>}/>
                     <Route path="jogos" element={<AdminJogos/>}/>

@@ -1,4 +1,4 @@
-import {createContext, useContext} from "react";
+import {createContext, forwardRef, useContext, useRef, useState} from "react";
 import {Link, NavLink} from "react-router-dom";
 import AsideItem from "./AsideItem";
 import {
@@ -12,17 +12,11 @@ import {
     faMedal
 } from "@fortawesome/free-solid-svg-icons";
 import p from "prop-types"
-import {icon, text} from "@fortawesome/fontawesome-svg-core";
-import {AiOutlineTeam} from "react-icons/ai";
-import {useStateContext} from "../../Contexts/ContextProvider";
 
-export const Aside = ({isAsideVisible, links}) => {
-
-    const {user} = useStateContext()
-
-
+export const Aside = forwardRef(({isAsideVisible, links}, ref) => {
+    
     return (
-        <aside
+        <aside ref={ref}
             className={`absolute md:relative w-[200px] p-3 bg-zinc-700 transform ${isAsideVisible ? "translate-x-0" : "-translate-x-full"
             } transition-transform duration-500 ease-in-out`}
         >
@@ -47,8 +41,10 @@ export const Aside = ({isAsideVisible, links}) => {
             </div>
         </aside>
     );
-}
+})
 
 Aside.propTypes = {
     isAsideVisible: p.bool
 }
+
+Aside.displayName = "Aside"

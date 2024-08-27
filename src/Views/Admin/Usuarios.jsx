@@ -13,11 +13,12 @@ import Alerts from "../../Components/Alerts"
 import {AlertErro} from "../../Components/Alerts/AlertErro"
 import {AlertSucesso} from "../../Components/Alerts/AlertSucesso"
 import {AlertConfirm} from "../../Components/Alerts/AlertConfirm"
-import {faL} from "@fortawesome/free-solid-svg-icons"
+import {faL, faPencil, faTrash} from "@fortawesome/free-solid-svg-icons"
 import {Modal} from "../../Components/Modal"
 import {Table} from "../../Components/Table"
 import {Display} from "../../Components/Display"
 import {Input} from "../../Components/Inputs/Input.jsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export const Usuarios = () => {
 
@@ -306,7 +307,7 @@ export const Usuarios = () => {
             <Display.Root title={"Usuários"}>
                 <Display.ActionsRoot>
                     <Display.ActionsModal setIsModalOpen={() => setIsModalOpen(true)} text={"Cadastrar Usuários"}/>
-                    <Display.ActionsSearch handleSearch={handleSearch}/>
+                    <Display.ActionsSearch placeholder="Insira um nome para buscar" handleSearch={handleSearch}/>
                 </Display.ActionsRoot>
                 <Display.Main>
                     {loading ? (
@@ -320,33 +321,30 @@ export const Usuarios = () => {
                             <Table.Body>
                                 {(input.trim() !== "" ? results : usuarios).map((response) => (
                                     <tr key={response.usuario.id} className="text-center">
-                                        <td className="p-5 text-pretty">
+                                        <td className="p-5 text-pretty truncate">
                                             <ProfileImage className={"w-10 h-10 rounded-full object-cover"}
                                                           fotoPerfil={response.usuario.foto_perfil}/>
 
                                         </td>
 
-                                        {/* className="w-10 rounded-full object-cover" */}
-
-                                        <td className="p-5 text-pretty">{response.usuario.nome}</td>
-                                        <td className="p-5 text-pretty">{response.usuario.email}</td>
-                                        <td className="p-5 text-pretty">{response.curso.nome_curso}</td>
-                                        <td className="p-5 text-pretty">{response.usuario.ra}</td>
-                                        <td className="p-5 text-pretty">{response.usuario.ra}</td>
-                                        <td className="p-5 text-pretty">{(response.usuario.tipo_usuario == 1) ? "Admin" : (response.usuario.tipo_usuario == 2) ? "Responsável" : "Usuário"}</td>
+                                        <td className="p-5 text-pretty truncate">{response.usuario.nome}</td>
+                                        <td className="p-5 text-pretty truncate">{response.usuario.email}</td>
+                                        <td className="p-5 text-pretty truncate">{response.curso.nome_curso}</td>
+                                        <td className="p-5 text-pretty truncate">{response.usuario.ra}</td>
+                                        <td className="p-5 text-pretty truncate">{(response.usuario.tipo_usuario == 1) ? "Admin" : (response.usuario.tipo_usuario == 2) ? "Responsável" : "Usuário"}</td>
                                         <td className="p-5 text-pretty">
                                             <button onClick={() => handleTornarResponsavel(response)}
-                                                    className="bg-unifae-green-2 p-2 text-white rounded-lg text-sm ">Tornar
+                                                    className="bg-unifae-green-2 p-2 text-white rounded-lg text-sm truncate">Tornar
                                                 Responsável
                                             </button>
                                         </td>
                                         <td className="p-5 flex gap-3">
                                             <button onClick={() => handleEditModal(response)}
-                                                    className="btn-sm btn-edit">Editar
+                                                    className="btn-sm btn-edit"><FontAwesomeIcon icon={faPencil} />
                                             </button>
                                             <button
                                                 onClick={() => handleConfirm(response.usuario.id, "Tem certeza de que quer excluir esse usuário?")}
-                                                className="btn-sm btn-delete">Excluir
+                                                className="btn-sm btn-delete"><FontAwesomeIcon icon={faTrash} />
                                             </button>
                                         </td>
                                     </tr>

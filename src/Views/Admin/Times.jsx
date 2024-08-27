@@ -497,7 +497,7 @@ export const Times = ({idResponsavel, url = "/times"}) => {
                     <select ref={filterRef} onChange={handleChangeFilter}
                             className="p-2 rounded bg-white border border-unifae-green-1" name="modalidade"
                             id="modalidade">
-                        <option value="0">Sem filtro</option>
+                        <option value="0">Escolha uma modalidade...</option>
                         {modalidades && modalidades.map(modalidade => (
                             <option key={modalidade.id} value={modalidade.id}>{modalidade.nome}</option>
                         ))}
@@ -519,12 +519,12 @@ export const Times = ({idResponsavel, url = "/times"}) => {
                                                 <ProfileImage className={"w-10 h-10 rounded-full object-cover"}
                                                               fotoPerfil={response.time_foto}
                                                               alt={response.time.nome}/>}</td>
-                                            <td className="p-5">{response.time.nome}</td>
-                                            <td className="p-5">{response.usuario.nome_responsavel ? response.usuario.nome_responsavel : "Sem responsável"}</td>
-                                            <td className="p-5">{response.modalidade.nome_modalidade}</td>
-                                            <td className="p-5">{response.informacoes.quantidade}</td>
-                                            <td className="p-5">{response.time.status === "0" ? "Inativo" : "Ativo"}</td>
-                                            <td className="p-5">
+                                            <td className="p-5 truncate sm:overflow-ellipsis md:overflow-hidden ">{response.time.nome}</td>
+                                            <td className="p-5 truncate sm:overflow-ellipsis md:overflow-hidden ">{response.usuario.nome_responsavel ? response.usuario.nome_responsavel : "Sem responsável"}</td>
+                                            <td className="p-5 truncate sm:overflow-ellipsis md:overflow-hidden ">{response.modalidade.nome_modalidade}</td>
+                                            <td className="p-5 truncate sm:overflow-ellipsis md:overflow-hidden ">{response.informacoes.quantidade}</td>
+                                            <td className="p-5 truncate sm:overflow-ellipsis md:overflow-hidden ">{response.time.status === "0" ? "Inativo" : "Ativo"}</td>
+                                            <td className="p-5 truncate sm:overflow-ellipsis md:overflow-hidden ">
                                                 <button
                                                     onClick={() => handleJogadoresModal(response.informacoes.jogadores, response.time.id)}
                                                     className="bg-unifae-gray-3 text-white p-2 rounded-lg ">Ver

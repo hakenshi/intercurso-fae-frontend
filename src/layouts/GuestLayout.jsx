@@ -5,6 +5,7 @@ import {useStateContext} from "../Contexts/ContextProvider";
 import axiosInstance from "../helper/axios-instance";
 import {Aside} from "../Components/Aside/Aside";
 import {Navbar} from "../Components/Navbar/Navbar";
+import { useClickOutSide } from "../Components/hooks/useClickOutside";
 
 // Criando o contexto
 const AsideContext = createContext();
@@ -36,18 +37,15 @@ export default function GuestLayout({isMobile}) {
 
     const navigate = useNavigate()
 
+    const asideRef = useClickOutSide(() => {
+        if(isMobile && isAsideVisible){
+            setIsAsideVisible(false)
+        }
+    })
     const toggleAsideVisibility = () => {
         setIsAsideVisible(a => !a);
     };
 
-    // useEffect(() => {
-    //     if (sessionStorage.getItem('ACCESS_TOKEN')) {
-    //         axiosInstance.get('/user')
-    //             .then(({data}) => {
-    //                 setUser(data)
-    //             })
-    //     }
-    // }, [navigate, setUser])
 
     const onLogout = (e) => {
         e.preventDefault()
@@ -65,7 +63,7 @@ export default function GuestLayout({isMobile}) {
                     onLogout={onLogout} toggleAsideVisibility={toggleAsideVisibility}/>
             <div className="flex">
                 <AsideContext.Provider value={{isAsideVisible, toggleAsideVisibility}}>
-                    <Aside links={guestLinks} isAsideVisible={isAsideVisible}/>
+                    <Aside ref={asideRef} links={guestLinks} isAsideVisible={isAsideVisible}/>
                 </AsideContext.Provider>
                 <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"} max-h-[92.4vh] overflow-clip`}>
                     <main className="flex justify-center items-center md:w-full w-screen">

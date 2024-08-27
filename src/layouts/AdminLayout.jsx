@@ -20,12 +20,6 @@ const AsideContext = createContext();
 
 const adminLinks = [
     {
-        path: '/admin/dashboard',
-        icon: faChartLine,
-        text: 'Dashboard',
-
-    },
-    {
         path: '/admin/usuarios',
         icon: faUserGroup,
         text: 'Usuarios',
@@ -53,13 +47,19 @@ const adminLinks = [
 
 export default function AdminLayout({isMobile}) {
     const [isAsideVisible, setIsAsideVisible] = useState(!isMobile);
-    const {user, setUser, setSessionToken, token} = useStateContext()
+    const {user, setUser, setSessionToken} = useStateContext()
 
     const navigate = useNavigate()
 
     const toggleAsideVisibility = () => {
         setIsAsideVisible(a => !a);
     };
+
+    const asideRef = useClickOutSide(() => {
+        if(isMobile && isAsideVisible){
+            setIsAsideVisible(false)
+        }
+    })
 
     const onLogout = (e) => {
         e.preventDefault()
@@ -77,7 +77,7 @@ export default function AdminLayout({isMobile}) {
                     onLogout={onLogout} toggleAsideVisibility={toggleAsideVisibility}/>
             <div className="flex">
                 <AsideContext.Provider value={{isAsideVisible, toggleAsideVisibility}}>
-                    <Aside links={adminLinks} isAsideVisible={isAsideVisible}/>
+                    <Aside ref={asideRef} links={adminLinks} isAsideVisible={isAsideVisible}/>
                 </AsideContext.Provider>
                 <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"}`}>
                     <main className="flex justify-center items-center md:w-full">

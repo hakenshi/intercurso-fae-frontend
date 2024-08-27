@@ -1,7 +1,9 @@
 import {useEffect, useRef} from "react";
 
 export const useClickOutSide = (handler) => {
-    const domNode = useRef(null)
+    const internalRef = useRef(null)
+
+    const domNode =  internalRef 
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -9,7 +11,6 @@ export const useClickOutSide = (handler) => {
                 handler()
             }
         }
-
         document.addEventListener('mousedown', handleClickOutside)
 
 
@@ -17,7 +18,7 @@ export const useClickOutSide = (handler) => {
             document.removeEventListener('mousedown', handleClickOutside)
         }
 
-    }, [])
+    }, [domNode, handler])
 
     return domNode
 }

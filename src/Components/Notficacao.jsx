@@ -7,7 +7,6 @@ import {useAlert} from './hooks/useAlert'
 import {useClickOutSide} from './hooks/useClickOutside'
 import {AlertConfirm} from "./Alerts/AlertConfirm.jsx";
 import {AlertErro} from "./Alerts/AlertErro.jsx";
-import axiosInstance from '../helper/axios-instance.js'
 
 const notifications = [
     {
@@ -58,7 +57,6 @@ export const Notficacao = ({id}) => {
         }
     }
 
-
     return (
         <>
             <AlertConfirm onConfirm={handleDeleteNotificacao} isOpen={isConfirmAlertOpen}
@@ -72,7 +70,7 @@ export const Notficacao = ({id}) => {
                     <FontAwesomeIcon className='text-base' icon={notificacao.length > 0 ? faBell : faBellRegular}/>
                 </div>
                 {id && <div
-                    className={`absolute top-12 right-0 overflow-hidden transition-all duration-[400ms] ${mostrarNotficacao ? "max-h-full ease-in" : "max-h-0 ease-out"}`}>
+                    className={`absolute z-10 top-12 right-0 overflow-hidden transition-all duration-[400ms] ${mostrarNotficacao ? "max-h-full ease-in" : "max-h-0 ease-out"}`}>
                     <div className="flex justify-center p-4">
                         <div className="w-64 bg-zinc-700 text-white p-2 rounded-[7px]">
                             <p className="text-center">Notificações</p>

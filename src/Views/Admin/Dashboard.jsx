@@ -7,6 +7,7 @@ import axiosInstance from "../../helper/axios-instance"
 import useAxios from "../../Components/hooks/useAxios"
 import {Oval} from "react-loader-spinner"
 import {Search} from "../../Components/Search bar/Search"
+import { Table } from "../../Components/Table"
 
 export default function Dashboard() {
 
@@ -19,64 +20,39 @@ export default function Dashboard() {
         url: "/usuarios",
     })
 
+    const totalTimes = 10;
+    const totalJogos = 25;
+    const totalModalidades = 5;
+    const totalUsuarios = 100;
+
     return (
-        <div className="w-[1670px] h-[88vh] p-7 flex flex-col gap-5">
-            {/* <div className="bg-card-white-1 rounded-xl ">
-                <div className="w-full h-[300px] flex gap-5 justify-around items-center">
-                    <DashboardCard>
-                        <p className="text-white p-5">Último usuário logado</p>
-                    </DashboardCard>
-                    <DashboardCard>
-                        <p className="text-white p-5">Último usuários cadastrado</p>
-                    </DashboardCard>
+        <div className="p-7">
+            {/* Grid Layout */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {/* Card de Total de Times */}
+                <div className="bg-card-white-1 p-5 rounded-md shadow-md">
+                    <h3 className="text-lg font-semibold">Total de Times</h3>
+                    <p className="text-2xl font-bold mt-2">{totalTimes}</p>
+                </div>
+
+                {/* Card de Total de Jogos */}
+                <div className="bg-card-white-1 p-5 rounded-md shadow-md">
+                    <h3 className="text-lg font-semibold">Total de Jogos</h3>
+                    <p className="text-2xl font-bold mt-2">{totalJogos}</p>
+                </div>
+
+                {/* Card de Total de Modalidades */}
+                <div className="bg-card-white-1 p-5 rounded-md shadow-md">
+                    <h3 className="text-lg font-semibold">Total de Modalidades</h3>
+                    <p className="text-2xl font-bold mt-2">{totalModalidades}</p>
+                </div>
+
+                {/* Card de Total de Usuários */}
+                <div className="bg-card-white-1 p-5 rounded-md shadow-md">
+                    <h3 className="text-lg font-semibold">Total de Usuários</h3>
+                    <p className="text-2xl font-bold mt-2">{totalUsuarios}</p>
                 </div>
             </div>
-            <div className="bg-card-white-1 rounded-xl flex-grow">
-                <div className="w-full h-[300px] p-3">
-                   {loading ? <div className="w-full h-full flex justify-center items-center"> <Oval visible={true} height="50" width="50" color="#3BBFA7" secondaryColor="#38A69B"/> </div> : <table className="table-fixed w-full border-collapse border-black">
-                        <thead>
-                            <tr className="bg-unifae-green-4 text-white rounded-md ">
-                                <th className="">
-                                    ID
-                                </th>
-                                <th className="">
-                                    Nome
-                                </th>
-                                <th className="">
-                                    Curso
-                                </th>
-                                <th className="">
-                                    Email
-                                </th>
-                                <th className="">
-                                    RA
-                                </th>
-                                <th className="">
-                                    Tipo de usuário
-                                </th>
-                                <th className="">
-                                    Data de criação
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody className="text-center">{usuarios.data.data.map(response =>(
-                            <tr key={response.usuario.nome}>
-                                <td className="border p- border-unifae-gray50-2" >{response.usuario.id}</td>
-                                <td className="border p- border-unifae-gray50-2" >{response.usuario.nome}</td>
-                                <td className="border p- border-unifae-gray50-2" >{response.curso.nome_curso}</td>
-                                <td className="border p- border-unifae-gray50-2" >{response.usuario.email}</td>
-                                <td className="border p- border-unifae-gray50-2" >{response.usuario.ra}</td>
-                                <td className="border p- border-unifae-gray50-2" >{response.usuario.tipo_usuario}</td>
-                                <td className="border p- border-unifae-gray50-2" >{response.usuario.data_criacao}</td>
-                            </tr>
-                        ))}</tbody>
-
-                    </table>
-                        }   
-                </div>
-
-            </div> */}
         </div>
     )
 

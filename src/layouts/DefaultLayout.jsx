@@ -36,6 +36,11 @@ export default function DefaultLayout({isMobile}) {
     const [isAsideVisible, setIsAsideVisible] = useState(!isMobile);
     const {user, setUser, setSessionToken} = useStateContext()
 
+    const asideRef = useClickOutSide(() => {
+        if(isMobile && isAsideVisible){
+            setIsAsideVisible(false)
+        }
+    })
     const navigate = useNavigate()
 
     const toggleAsideVisibility = () => {
@@ -57,7 +62,7 @@ export default function DefaultLayout({isMobile}) {
                     onLogout={onLogout} toggleAsideVisibility={toggleAsideVisibility}/>
             <div className="flex">
                 <AsideContext.Provider value={{isAsideVisible, toggleAsideVisibility}}>
-                    <Aside links={userLinks} isAsideVisible={isAsideVisible}/>
+                    <Aside ref={asideRef} links={userLinks} isAsideVisible={isAsideVisible}/>
                 </AsideContext.Provider>
                 <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"} max-h-[92.4vh] overflow-clip`}>
                     <main className="flex justify-center items-center md:w-full w-screen">

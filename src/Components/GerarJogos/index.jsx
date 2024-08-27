@@ -51,7 +51,7 @@ export const GerarJogos = ({modalidade, nome}) => {
                 </Modal.Default>
             </Modal.Root>
 
-            <button className="p-2 bg-unifae-green-1 hover:bg-unifae-green-2 text-white rounded" onClick={() => handleFetchTimes()}>Gerar Chaves</button>
+            <button className="p-2 bg-unifae-green-1 hover:bg-unifae-green-2 text-white rounded truncate" onClick={() => handleFetchTimes()}>Gerar Chaves</button>
         </>
     );
 };
