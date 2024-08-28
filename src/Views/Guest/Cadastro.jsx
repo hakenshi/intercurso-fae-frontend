@@ -224,7 +224,7 @@ export default function Cadastro() {
                 <div className="size-full p-3 max-w-screen-lg  bg-white rounded-md">
                     <div className="flex items-center flex-col h-1/5 justify-center">
                         <img src={logoPadrao} alt="unifae-logo" className="w-1/3"/>
-                        <span className="text-unifae-green-1 font-semibold">Intercurso</span>
+                        <span className="text-unifae-gray-1 text-2xl font-semibold">Intercurso</span>
                     </div>
                     <form className="flex flex-col md:flex-row justify-center">
                         <div className="flex flex-col w-full md:w-1/2 gap-1 p-2">
@@ -288,9 +288,9 @@ export default function Cadastro() {
                     </form>
                     <div className="flex flex-col w-full items-center p-3">
                         <p className="p-2">Já tem conta? <Link to={"/login"}
-                                                               className="text-unifae-green-1 font-semibold"> Clique
+                                                               className="text-unifae-gray-1 font-semibold"> Clique
                             aqui</Link></p>
-                        <button disabled={isLoading} type="submit" onClick={handleForm} className="btn-lg btn-green">{isLoading ? "Enviando..." : "Fazer Cadastro"}</button>
+                        <button disabled={isLoading} type="submit" onClick={handleForm} className="btn-lg bg-unifae-gray-1 text-white rounded">{isLoading ? "Enviando..." : "Fazer Cadastro"}</button>
                     </div>
                 </div>
             </section>

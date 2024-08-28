@@ -51,14 +51,14 @@ export default function Login() {
                 <div className="w-screen md:w-1/2 bg-white rounded-md lg:w-[33vw] p-3 md:p-5 lg:p-10">
                     <div className="flex items-center flex-col h-[15vh] justify-center">
                         <img src={logoPadrao} alt="unifae-logo" className="w-3/4"/>
-                        <span className="text-unifae-green-1 font-semibold">Intercurso</span>
+                        <span className="text-unifae-gray-1 font-semibold text-2xl">Intercurso</span>
                     </div>
                     <form className="flex flex-col items-center gap-6 p-4 lg:p-0" onSubmit={handleSubmit}>
                         <div className="flex flex-col justify-center">
                             <label className="text-lg" htmlFor="email">Email</label>
                             <input ref={emailRef}
                                    className={`input-login ${errors && errors.errors && errors.errors.email ? "input-error" : ""}`}
-                                   type="text" name="email" id="email" placeholder="email@email.com"/>
+                                   type="text" name="email" id="email" placeholder="email@sou.fae.br"/>
                             {errors && errors.errors ? errors.errors.email &&
                                 <p className="px-2 py-1 text-xs text-black/80">{errors.errors.email[0]}</p> : ""}
                         </div>
@@ -70,9 +70,9 @@ export default function Login() {
                             {errors && errors.errors ? errors.errors.senha &&
                                 <p className="px-2 py-1 text-xs text-black/80">{errors.errors.senha[0]}</p> : ""}
                         </div>
-                        <p>Esqueceu sua senha? <Link to={'/redefinir-senha'} className="text-unifae-green-1 font-bold">Clique aqui</Link></p>
-                        <button className="btn-lg btn-green">{loading ? "Enviando..." : "Entrar"}</button>
-                        <p>Ainda não tem conta? <Link to={"/cadastro"} className="text-unifae-green-1 font-bold">Clique
+                        <p>Esqueceu sua senha? <Link to={'/redefinir-senha'} className="text-unifae-gray-1 font-bold">Clique aqui</Link></p>
+                        <button className="btn-lg bg-unifae-gray-1 text-white rounded">{loading ? "Enviando..." : "Entrar"}</button>
+                        <p>Ainda não tem conta? <Link to={"/cadastro"} className="text-unifae-gray-1 font-bold">Clique
                             aqui</Link></p>
                     </form>
                 </div>
