@@ -111,9 +111,9 @@ export const MeuTime = () => {
                                         <button onClick={() => handleJogadores(time.time.jogadores)} className="p-2 h-8 w-8 md:w-10 md:h-10 text-xs md:text-base text-center text-white bg-zinc-600 rounded">
                                             <FontAwesomeIcon icon={faUserGroup} />
                                         </button>
-                                        <button onClick={() => handleSair(time.id, time.time.id)}
+                                        {/* <button onClick={() => handleSair(time.id, time.time.id)}
                                             className="p-2 h-8 w-8 md:w-10 md:h-10 text-xs md:text-base text-center btn-delete"> <FontAwesomeIcon icon={faRightFromBracket} />
-                                        </button>
+                                        </button> */}
                                     </div>}
                             </div>
                         </div>

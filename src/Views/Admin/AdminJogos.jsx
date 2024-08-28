@@ -394,15 +394,15 @@ export const AdminJogos = () => {
                             <Table.Body>
                                 {jogos && jogos.map((response, i) =>
                                     <tr key={i} className='text-center'>
-                                        <td className='p-5 truncate'>{response.jogo.fase.nome}</td>
-                                        <td className='p-5 truncate'>{response.times.time1.nome} </td>
-                                        <td className="p-5 truncate">{response.times.time2.nome}</td>
-                                        <td className="p-5 truncate">{response.placar.time_vencedor.nome}</td>
-                                        <td className='p-5 truncate'>{response.jogo.local}</td>
-                                        <td className='p-5 truncate'>{response.jogo.data_jogo}</td>
-                                        <td className='p-5 truncate'>{response.jogo.hora_jogo}</td>
-                                        <td className='p-5 truncate'>{response.modalidade.nome}</td>
-                                        <td className='p-5 truncate'>{defineStatus(response.jogo.status)}</td>
+                                        <td className='p-5'>{response.jogo.fase.nome}</td>
+                                        <td className='p-5'>{response.times.time1.nome} </td>
+                                        <td className="p-5">{response.times.time2.nome}</td>
+                                        <td className="p-5">{response.placar.time_vencedor.nome}</td>
+                                        <td className='p-5'>{response.jogo.local}</td>
+                                        <td className='p-5'>{response.jogo.data_jogo}</td>
+                                        <td className='p-5'>{response.jogo.hora_jogo}</td>
+                                        <td className='p-5'>{response.modalidade.nome}</td>
+                                        <td className='p-5'>{defineStatus(response.jogo.status)}</td>
                                         <td className='p-5 flex gap-5'>
                                             <button
                                                 onClick={() => handleEditPlacar(response.jogo.id, response.jogo.id_proximo_jogo, response.placar, response.times)}

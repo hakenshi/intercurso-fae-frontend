@@ -207,7 +207,7 @@ export const Modalidades = () => {
                                             <td className="p-5 truncate">{response.nome}</td>
                                             <td className="p-5 truncate">{capitalize(response.categoria.nome)}</td>
                                             <td className="p-5 truncate">{response.quantidade_participantes}</td>
-                                            <td className="p-5 truncate">{response.genero === "0" ? "Maculino" : "Feminino"}</td>
+                                            <td className="p-5 truncate">{response.genero === "0" ? "Masculino" : "Feminino"}</td>
                                             <td className="p-5 truncate">{response.data_adicao}</td>
                                             <td className="p-5 truncate">                                                    
                                                 <GerarJogos modalidade={response.id} nome={response.nome} />

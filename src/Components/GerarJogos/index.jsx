@@ -29,7 +29,10 @@ export const GerarJogos = ({modalidade, nome}) => {
         })
             .then(({data}) => {
                 setIsLoading(false)
-                console.log(data)
+                if(data){
+                    alert('Partidas geradas com sucesso.')
+                    setIsOpen(false)
+                }
             })
             .catch(e => {
                 setIsLoading(false)

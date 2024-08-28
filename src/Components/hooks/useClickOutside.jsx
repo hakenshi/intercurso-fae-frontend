@@ -22,4 +22,3 @@ export const useClickOutSide = (handler) => {
 
     return domNode
 }
-
