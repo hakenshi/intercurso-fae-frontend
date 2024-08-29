@@ -88,12 +88,13 @@ export const MeuTime = () => {
                 </div> : times.length > 0 ? <div className="flex items-center flex-col gap-2 flex-grow m-5 md:m-10">
                     <h1 className='text-center p-5 text-3xl font-medium'>Meus Times</h1>
                     
+                  
+                    <div className='max-h-[80vh] flex flex-col gap-2 overflow-y-scroll w-full'>
                     <div className='flex justify-between text-center bg-unifae-green-1 text-white p-2 w-full max-w-screen-sm md:max-w-screen-2xl rounded'>
                         <div className='p-2 text-sm md:text-base flex-1 md:p-5'>Nome do time</div>
                         <div className='p-2 text-sm md:text-base flex-1 md:p-5'>Responsavel</div>
                         <div className='p-2 text-sm md:text-base flex-1 md:p-5'>Ações</div>
                     </div>
-                    <div className='max-h-[80vh] flex flex-col gap-2 overflow-y-scroll w-full'>
                     {times
                         .map((time, index) => (
                             <div className='flex justify-between text-center bg-card-white-1 w-full max-w-screen-sm md:max-w-screen-2xl rounded' key={index}>
