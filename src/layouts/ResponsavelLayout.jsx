@@ -64,7 +64,7 @@ export default function ResponsavelLayout({isMobile}) {
                     <Aside ref={asideRef} links={responsavelLinks} isAsideVisible={isAsideVisible}/>
                 </AsideContext.Provider>
                 <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"} max-h-[92.4vh] overflow-clip`}>
-                    <main className="flex justify-center items-center md:w-full w-screen">
+                    <main className="flex justify-center items-center md:max-w-full max-w-screen">
                         <Outlet/>
                     </main>
                 </div>

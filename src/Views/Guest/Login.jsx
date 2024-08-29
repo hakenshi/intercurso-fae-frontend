@@ -71,7 +71,7 @@ export default function Login() {
                                 <p className="px-2 py-1 text-xs text-black/80">{errors.errors.senha[0]}</p> : ""}
                         </div>
                         <p>Esqueceu sua senha? <Link to={'/redefinir-senha'} className="text-unifae-gray-1 font-bold">Clique aqui</Link></p>
-                        <button className="btn-lg bg-unifae-gray-1 text-white rounded">{loading ? "Enviando..." : "Entrar"}</button>
+                        <button className="btn-lg bg-unifae-gray-1 hover: text-white rounded">{loading ? "Enviando..." : "Entrar"}</button>
                         <p>Ainda não tem conta? <Link to={"/cadastro"} className="text-unifae-gray-1 font-bold">Clique
                             aqui</Link></p>
                     </form>

@@ -14,10 +14,10 @@ import {Loading} from "../../Components/Loading"
 import usePagiante from "../../Components/hooks/usePaginate.jsx";
 import {Paginate} from "../../Components/Paginate.jsx";
 
-export const Times = ({idResponsavel, url = "/times"}) => {
+export const Times = ({idResponsavel}) => {
 
     const filterRef = useRef(null)
-    const [paginateUrl, setPaginateUrl] = useState('/paginate/times/0')
+    const [paginateUrl, setPaginateUrl] = useState(idResponsavel ? `/paginate/times/${idResponsavel}/0` : '/paginate/times/0')
     const {user} = useStateContext()
     const {isAlertOpen, setIsAlertOpen, handleClose} = useAlert()
     const [isEditAlertOpen, setIsEditAlertOpen] = useState(false);
@@ -25,6 +25,8 @@ export const Times = ({idResponsavel, url = "/times"}) => {
     const nomeRef = useRef(null)
     const modalidadeRef = useRef(null)
     const responsavelRef = useRef(null)
+
+    
 
     // const [times, setTimes] = useState(null);
     const [timeId, setTimeId] = useState(null);
@@ -36,7 +38,9 @@ export const Times = ({idResponsavel, url = "/times"}) => {
     const [erros, setErrors] = useState(null);
     const [novoJogador, setNovoJogador] = useState([])
     const [isEditing, setIsEditing] = useState(false)
+    
     const {data, handlePageChange,fetchData,lastPage,currentPage} = usePagiante(paginateUrl)
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -96,12 +100,6 @@ export const Times = ({idResponsavel, url = "/times"}) => {
             return;
         }
 
-        // const responsavel = data.some(({usuario}) => usuario.id_responsavel === novoJogador);
-
-        // if (responsavel) {
-        //     alert("Você não pode se adicionar no time");
-        //     return;
-        // }
 
         const jogadorExistente = editJogadores.some(jogador => jogador.id_usuario === novoJogador);
 
@@ -330,7 +328,7 @@ export const Times = ({idResponsavel, url = "/times"}) => {
             })
     }
 
-    const handleChangeFilter = () => setPaginateUrl(`/paginate/times/${filterRef.current.value}`)
+    const handleChangeFilter = () => setPaginateUrl(idResponsavel ? `/paginate/times/${idResponsavel}/${filterRef.current.value}` : `/paginate/times/${idResponsavel}/${filterRef.current.value}`)
 
     return (
         <>
@@ -370,10 +368,10 @@ export const Times = ({idResponsavel, url = "/times"}) => {
                     </div>
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="quantidade-pariticpantes">Modalidade</label>
-                        <select ref={modalidadeRef} className="input-modal bg-white" name="modalidade" id="modalidade">
+                        <select defaultValue={editTimes ? editTimes.modalidade.id_modalidade : ''} ref={modalidadeRef} className="input-modal bg-white" name="modalidade" id="modalidade">
                             <option value="">Selecione uma modalidade</option>
                             {modalidades != null && modalidades.map(modalidade => (
-                                <option selected={editTimes ? editTimes.modalidade.nome_modalidade : ""}
+                                <option
                                         key={modalidade.id} value={modalidade.id}>
                                     {modalidade.nome}
                                 </option>
@@ -489,10 +487,10 @@ export const Times = ({idResponsavel, url = "/times"}) => {
             </Modal.Root>
 
             <div className="w-full flex items-center flex-col">
-                <h1 className="text-center p-5 text-3xl font-medium">Times do Intercurso</h1>
+                <h1 className="text-center p-5 text-2xl font-medium">Times do Intercurso</h1>
                 <div className="flex flex-col">
-                    <span className="flex justify-around p-5">
-                        <button onClick={() => setIsAlertOpen(true)} className="w-fit p-3 btn-green text-sm ">Cadastrar Time</button>
+                    <span className="flex justify-around p-3 mb-2">
+                        <button onClick={() => setIsAlertOpen(true)} className="w-fit p-2 btn-green text-sm">Cadastrar Time</button>
                     </span>
                     <select ref={filterRef} onChange={handleChangeFilter}
                             className="p-2 rounded bg-white border border-unifae-green-1" name="modalidade"
@@ -509,7 +507,7 @@ export const Times = ({idResponsavel, url = "/times"}) => {
                         <Table.Root>
                             <Table.Head
                                 titles={['Foto', 'Nome', 'Responsável', "Modalidades", 'Quantidade de Jogadores', 'Status', '', '', '']}/>
-                            <Table.Body className="divide-y divide-unifae-gray50-2">
+                            <Table.Body className="divide-y divide-unifae-gray50-2 ">
                                 {data && data
                                     .map(response => (
                                         <tr key={response.time.id} className="text-center">
@@ -519,12 +517,12 @@ export const Times = ({idResponsavel, url = "/times"}) => {
                                                 <ProfileImage className={"w-10 h-10 rounded-full object-cover"}
                                                               fotoPerfil={response.time_foto}
                                                               alt={response.time.nome}/>}</td>
-                                            <td className="p-5 truncate sm:overflow-ellipsis md:overflow-hidden ">{response.time.nome}</td>
-                                            <td className="p-5 truncate sm:overflow-ellipsis md:overflow-hidden ">{response.usuario.nome_responsavel ? response.usuario.nome_responsavel : "Sem responsável"}</td>
-                                            <td className="p-5 truncate sm:overflow-ellipsis md:overflow-hidden ">{response.modalidade.nome_modalidade}</td>
-                                            <td className="p-5 truncate sm:overflow-ellipsis md:overflow-hidden ">{response.informacoes.quantidade}</td>
-                                            <td className="p-5 truncate sm:overflow-ellipsis md:overflow-hidden ">{response.time.status === "0" ? "Inativo" : "Ativo"}</td>
-                                            <td className="p-5 truncate sm:overflow-ellipsis md:overflow-hidden ">
+                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden ">{response.time.nome}</td>
+                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden ">{response.usuario.nome_responsavel ? response.usuario.nome_responsavel : "Sem responsável"}</td>
+                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden ">{response.modalidade.nome_modalidade}</td>
+                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden ">{response.informacoes.quantidade}</td>
+                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden ">{response.time.status === "0" ? "Inativo" : "Ativo"}</td>
+                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden ">
                                                 <button
                                                     onClick={() => handleJogadoresModal(response.informacoes.jogadores, response.time.id)}
                                                     className="bg-unifae-gray-3 text-white p-2 rounded-lg ">Ver
