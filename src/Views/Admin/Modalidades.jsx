@@ -15,6 +15,7 @@ import { Table } from "../../Components/Table/index.jsx";
 import { GerarJogos } from "../../Components/GerarJogos/index.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { Display } from "../../Components/Display/index.jsx"
 
 export const Modalidades = () => {
 
@@ -186,9 +187,8 @@ export const Modalidades = () => {
                     </div>
                 </Modal.Form>
             </Modal.Root>
-            <div className="w-full h-[88vh] flex items-center flex-col">
-                <h1 className="text-center p-5 text-3xl font-medium">Modalidades</h1>
-                <div className="flex flex-col">
+            <Display.Root title={"Modalidades"}>
+                <div className="flex flex-col mb-3">
                     <span className="flex justify-around p-5">
                         <button onClick={() => setIsAlertOpen(true)} className="w-fit p-3 btn-green text-sm ">Cadastrar Modalidade</button>
                     </span>
@@ -196,7 +196,7 @@ export const Modalidades = () => {
                         onChange={handleSearch} />
                 </div>
 
-                <div className="flex flex-col justify-center items-center p-5">
+                <Display.Main>
                     {loading ? (<Loading />) :
                         (modalidades.length > 0 ?
                             <Table.Root>
@@ -226,10 +226,10 @@ export const Modalidades = () => {
                             </Table.Root>
 
                             : <p>Ainda não há nenhuma modalidade cadastrada no sistema</p>)}
-                </div>
+                </Display.Main>
                 {modalidades.length > 0 ?
                     <Paginate currentPage={currentPage} handlePageChange={handlePageChange} lastPage={lastPage} /> : ""}
-            </div>
+            </Display.Root>
 
         </>
 

@@ -80,7 +80,7 @@ export default function AdminLayout({isMobile}) {
                     <Aside ref={asideRef} links={adminLinks} isAsideVisible={isAsideVisible}/>
                 </AsideContext.Provider>
                 <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"}`}>
-                    <main className="flex justify-center items-center md:w-full">
+                    <main className="flex flex-col justify-center items-center w-screen md:w-full">
                         <Outlet/>
                     </main>
                 </div>

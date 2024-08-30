@@ -1,32 +1,33 @@
-import React, {useEffect, useRef, useState} from "react"
-import {useStateContext} from "../../Contexts/ContextProvider"
-import {useAlert} from "../../Components/hooks/useAlert"
+import React, { useEffect, useRef, useState } from "react"
+import { useStateContext } from "../../Contexts/ContextProvider"
+import { useAlert } from "../../Components/hooks/useAlert"
 import axiosInstance from "../../helper/axios-instance"
-import {Search} from "../../Components/Search bar/Search"
-import {faArrowsRotate} from "@fortawesome/free-solid-svg-icons"
-import {images} from "../../assets"
-import {ProfileImage} from "../../Components/ProfileImage"
-import {Modal} from "../../Components/Modal"
-import {Table} from "../../Components/Table"
-import {setStatus} from "../../utils/setStatus"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {Loading} from "../../Components/Loading"
+import { Search } from "../../Components/Search bar/Search"
+import { faArrowsRotate } from "@fortawesome/free-solid-svg-icons"
+import { images } from "../../assets"
+import { ProfileImage } from "../../Components/ProfileImage"
+import { Modal } from "../../Components/Modal"
+import { Table } from "../../Components/Table"
+import { setStatus } from "../../utils/setStatus"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Loading } from "../../Components/Loading"
 import usePagiante from "../../Components/hooks/usePaginate.jsx";
-import {Paginate} from "../../Components/Paginate.jsx";
+import { Paginate } from "../../Components/Paginate.jsx";
+import { Display } from "../../Components/Display/index.jsx"
 
-export const Times = ({idResponsavel}) => {
+export const Times = ({ idResponsavel }) => {
 
     const filterRef = useRef(null)
     const [paginateUrl, setPaginateUrl] = useState(idResponsavel ? `/paginate/times/${idResponsavel}/0` : '/paginate/times/0')
-    const {user} = useStateContext()
-    const {isAlertOpen, setIsAlertOpen, handleClose} = useAlert()
+    const { user } = useStateContext()
+    const { isAlertOpen, setIsAlertOpen, handleClose } = useAlert()
     const [isEditAlertOpen, setIsEditAlertOpen] = useState(false);
     const [isJogadoresAlertOpen, setisJogadoresAlertOpen] = useState(false);
     const nomeRef = useRef(null)
     const modalidadeRef = useRef(null)
     const responsavelRef = useRef(null)
 
-    
+
 
     // const [times, setTimes] = useState(null);
     const [timeId, setTimeId] = useState(null);
@@ -38,8 +39,8 @@ export const Times = ({idResponsavel}) => {
     const [erros, setErrors] = useState(null);
     const [novoJogador, setNovoJogador] = useState([])
     const [isEditing, setIsEditing] = useState(false)
-    
-    const {data, handlePageChange,fetchData,lastPage,currentPage} = usePagiante(paginateUrl)
+
+    const { data, handlePageChange, fetchData, lastPage, currentPage } = usePagiante(paginateUrl)
 
 
     useEffect(() => {
@@ -116,7 +117,7 @@ export const Times = ({idResponsavel}) => {
             quantidade_participantes: quantidade
         } = data.find(time => time.time.id === timeId).modalidade;
 
-        const {nome} = modalidades.find(modalidade => modalidade.id === modalidadeAtualId);
+        const { nome } = modalidades.find(modalidade => modalidade.id === modalidadeAtualId);
 
         const jogadorComModalidadeDuplicada = data.some(time =>
             time.time.id !== timeId &&
@@ -140,7 +141,7 @@ export const Times = ({idResponsavel}) => {
             return;
         }
 
-        const updatedJogadores = [...editJogadores, {...aluno, id_usuario: aluno.id, id_time: timeId, status: '0'}];
+        const updatedJogadores = [...editJogadores, { ...aluno, id_usuario: aluno.id, id_time: timeId, status: '0' }];
 
         if (updatedJogadores.length === 0) {
             alert("O time deve ter ao menos 1 jogador");
@@ -154,7 +155,7 @@ export const Times = ({idResponsavel}) => {
         }));
 
         axiosInstance.post('/jogadores', payload)
-            .then(({data}) => {
+            .then(({ data }) => {
                 fetchData()
                 // setTimes(t => t.map(time => time.time.id === data.data[0].time.id_time ? {
                 //     ...time,
@@ -196,7 +197,7 @@ export const Times = ({idResponsavel}) => {
 
         if (isEditAlertOpen) {
             axiosInstance.put(`/times/${editTimes.time.id}`, payload)
-                .then(({data}) => {
+                .then(({ data }) => {
                     if (data) {
                         alert("Time Editado com sucesso!")
                         fetchData()
@@ -213,7 +214,7 @@ export const Times = ({idResponsavel}) => {
                 .finally(() => setIsEditAlertOpen(false))
         } else {
             axiosInstance.post('/times', payload)
-                .then(({data}) => {
+                .then(({ data }) => {
                     if (data) {
                         alert("Time cadastrado com sucesso!")
 
@@ -293,7 +294,7 @@ export const Times = ({idResponsavel}) => {
             axiosInstance.put(`/times/${times.time.id}`, {
                 status: status
             })
-                .then(({data}) => {
+                .then(({ data }) => {
 
                     alert(`Time ${times.time.status === '1' ? "inativado" : "ativado"} com sucesso`)
 
@@ -319,7 +320,7 @@ export const Times = ({idResponsavel}) => {
             status: status
         })
             .then(() => {
-                setEditJogadores(j => j.map(j => j.id === jogador.id ? {...j, status: status} : j))
+                setEditJogadores(j => j.map(j => j.id === jogador.id ? { ...j, status: status } : j))
                 fetchData()
 
             })
@@ -339,7 +340,7 @@ export const Times = ({idResponsavel}) => {
                 <Modal.Form onSubmit={handleSubmit} texto="Cadastrar Time">
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="nome">Nome do time</label>
-                        <input ref={nomeRef} type="text" className="input-modal" name="nome"/>
+                        <input ref={nomeRef} type="text" className="input-modal" name="nome" />
                     </div>
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="quantidade-pariticpantes">Modalidade</label>
@@ -355,8 +356,8 @@ export const Times = ({idResponsavel}) => {
                     {user.tipo_usuario == 1 && <div className="flex flex-col justify-center p-2">
                         <label htmlFor="nome">Responsável pelo time</label>
                         <Search ref={responsavelRef} placeholder={"Insira o RA do responsável"} url={"/responsaveis"}
-                                handleSelectUser={handleSelectResponsavel}
-                                data={editTimes ? editTimes.usuario.nome_responsavel : ""}/>
+                            handleSelectUser={handleSelectResponsavel}
+                            data={editTimes ? editTimes.usuario.nome_responsavel : ""} />
                     </div>}
                 </Modal.Form>
             </Modal.Root>
@@ -367,7 +368,7 @@ export const Times = ({idResponsavel}) => {
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="nome">Nome do time</label>
                         <input ref={nomeRef} defaultValue={editTimes ? editTimes.time.nome : ""} type="text"
-                               className="input-modal" name="nome"/>
+                            className="input-modal" name="nome" />
                     </div>
                     <div className="flex flex-col justify-center p-2">
                         <label htmlFor="quantidade-pariticpantes">Modalidade</label>
@@ -375,7 +376,7 @@ export const Times = ({idResponsavel}) => {
                             <option value="">Selecione uma modalidade</option>
                             {modalidades != null && modalidades.map(modalidade => (
                                 <option
-                                        key={modalidade.id} value={modalidade.id}>
+                                    key={modalidade.id} value={modalidade.id}>
                                     {modalidade.nome}
                                 </option>
                             ))}
@@ -384,8 +385,8 @@ export const Times = ({idResponsavel}) => {
                     {user.tipo_usuario == 1 && <div className="flex flex-col justify-center p-2">
                         <label htmlFor="nome">Responsável pelo time</label>
                         <Search placeholder={"Insira o RA do responsável"} url={"/responsaveis"}
-                                handleSelectUser={handleSelectResponsavel}
-                                data={editTimes ? editTimes.usuario.nome_responsavel : ""}/>
+                            handleSelectUser={handleSelectResponsavel}
+                            data={editTimes ? editTimes.usuario.nome_responsavel : ""} />
                     </div>}
                 </Modal.Form>
             </Modal.Root>
@@ -401,7 +402,7 @@ export const Times = ({idResponsavel}) => {
 
                         {isEditing && <div className="flex justify-center items-center p-2 gap-3 w-full">
                             <Search placeholder={"Insira o RA de um aluno"} url={"/search-jogadores"}
-                                    handleSelectUser={handleSelectJogador}/>
+                                handleSelectUser={handleSelectJogador} />
                             <button type="button" onClick={handleAddJogador} className="btn-green p-2">Adicionar
                                 jogador
                             </button>
@@ -412,69 +413,69 @@ export const Times = ({idResponsavel}) => {
                         {editJogadores && editJogadores.length > 0 ? (
                             <table className="w-full table-auto divide-y divide-gray-200">
                                 <thead className="bg-unifae-green-4">
-                                <tr className="text-center">
-                                    <th scope="col"
-                                        className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    </th>
-                                    <th scope="col"
-                                        className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                        Nome
-                                    </th>
-                                    <th scope="col"
-                                        className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                        Email
-                                    </th>
-                                    <th scope="col"
-                                        className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                        RA
-                                    </th>
-                                    <th scope="col"
-                                        className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                        Status
-                                    </th>
-                                    <th scope="col"
-                                        className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                    </th>
-                                </tr>
+                                    <tr className="text-center">
+                                        <th scope="col"
+                                            className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                        </th>
+                                        <th scope="col"
+                                            className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                            Nome
+                                        </th>
+                                        <th scope="col"
+                                            className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                            Email
+                                        </th>
+                                        <th scope="col"
+                                            className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                            RA
+                                        </th>
+                                        <th scope="col"
+                                            className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                            Status
+                                        </th>
+                                        <th scope="col"
+                                            className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                        </th>
+                                    </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                {editJogadores.map((jogador, index) => (
-                                    <tr key={index}>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <ProfileImage className="w-10 h-10 object-cover rounded-full"
-                                                          fotoPerfil={jogador.foto_perfil}/>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            {jogador.nome}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            {jogador.email}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            {jogador.ra}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            {setStatus(jogador.status)}
-                                        </td>
-                                        {isEditing && (
-                                            <td className="px-6 py-4 whitespace-nowrap flex gap-6">
-                                                {/* <button type="button" onClick={() => handleInativarJogador(jogador)} className={`btn-sm ${jogador.status === "1" ? 'btn-delete' : 'btn-confirm'}`}>
+                                    {editJogadores.map((jogador, index) => (
+                                        <tr key={index}>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <ProfileImage className="w-10 h-10 object-cover rounded-full"
+                                                    fotoPerfil={jogador.foto_perfil} />
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {jogador.nome}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {jogador.email}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {jogador.ra}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {setStatus(jogador.status)}
+                                            </td>
+                                            {isEditing && (
+                                                <td className="px-6 py-4 whitespace-nowrap flex gap-6">
+                                                    {/* <button type="button" onClick={() => handleInativarJogador(jogador)} className={`btn-sm ${jogador.status === "1" ? 'btn-delete' : 'btn-confirm'}`}>
                                                         {setStatus(jogador.status)}
                                                     </button> */}
-                                                {jogador.status === "2" &&
-                                                    <button onClick={() => handleEnviarConvite(jogador)}
+                                                    {jogador.status === "2" &&
+                                                        <button onClick={() => handleEnviarConvite(jogador)}
                                                             className="btn-green w-10 h-10 text-xl text-center">
-                                                        <FontAwesomeIcon aria-label="enviar novo convite"
-                                                                         icon={faArrowsRotate}/></button>}
+                                                            <FontAwesomeIcon aria-label="enviar novo convite"
+                                                                icon={faArrowsRotate} /></button>}
 
-                                                <button type="button" onClick={() => handleDeleteJogador(jogador.id)}
+                                                    <button type="button" onClick={() => handleDeleteJogador(jogador.id)}
                                                         className={`btn-sm btn-delete`}>
-                                                    Retirar
-                                                </button>
-                                            </td>
-                                        )}
-                                    </tr>
-                                ))}
+                                                        Retirar
+                                                    </button>
+                                                </td>
+                                            )}
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         ) : (
@@ -483,76 +484,81 @@ export const Times = ({idResponsavel}) => {
                             </div>
                         )}
                         {isEditing && (
-                            <Modal.Button type="button" texto="Salvar" onClick={() => setIsEditing(false)}/>
+                            <Modal.Button type="button" texto="Salvar" onClick={() => setIsEditing(false)} />
                         )}
                     </div>
                 </Modal.Default>
             </Modal.Root>
 
-            <div className="w-full flex items-center flex-col">
-                <h1 className="text-center p-5 text-2xl font-medium">Times do Intercurso</h1>
-                <div className="flex flex-col">
-                    <span className="flex justify-around p-3 mb-2">
-                        <button onClick={() => setIsAlertOpen(true)} className="w-fit p-2 btn-green text-sm">Cadastrar Time</button>
-                    </span>
+            <Display.Root title={"Times"}>
+                <Display.ActionsRoot>
+                    <Display.ActionsModal setIsModalOpen={() => setIsAlertOpen(true)} text={"Cadastrar Time"} />
                     <select ref={filterRef} onChange={handleChangeFilter}
-                            className="p-2 rounded bg-white border border-unifae-green-1" name="modalidade"
-                            id="modalidade">
+                        className="p-2 rounded bg-white border border-unifae-green-1" name="modalidade"
+                        id="modalidade">
                         <option value="0">Escolha uma modalidade...</option>
                         {modalidades && modalidades.map(modalidade => (
                             <option key={modalidade.id} value={modalidade.id}>{modalidade.nome}</option>
                         ))}
                     </select>
-                </div>
-                {loading ? (<Loading/>) : data && data.length > 0 ?
-                    <div className="flex flex-col justify-center items-center p-5">
-
-                        <Table.Root>
-                            <Table.Head
-                                titles={['Foto', 'Nome', 'Responsável', "Modalidades", 'Quantidade de Jogadores', 'Status', '', '', '']}/>
-                            <Table.Body className="divide-y divide-unifae-gray50-2 ">
-                                {data && data
-                                    .map(response => (
+                </Display.ActionsRoot>
+                {loading ? (<Loading />) : data && data.length > 0 ? (
+                    <>
+                        <Display.Main>
+                            <Table.Root>
+                                <Table.Head
+                                    titles={['Foto', 'Nome', 'Responsável', "Modalidades", 'Quantidade de Jogadores', 'Status', '', '', '']} />
+                                <Table.Body className="divide-y divide-unifae-gray50-2">
+                                    {data.map(response => (
                                         <tr key={response.time.id} className="text-center">
-                                            <td className="p-5">{response.time.foto_time == null ?
-                                                <img className={"w-10 h-10 rounded-full object-cover"}
-                                                     src={images.timeFoto}/> :
-                                                <ProfileImage className={"w-10 h-10 rounded-full object-cover"}
-                                                              fotoPerfil={response.time_foto}
-                                                              alt={response.time.nome}/>}</td>
-                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden ">{response.time.nome}</td>
-                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden ">{response.usuario.nome_responsavel ? response.usuario.nome_responsavel : "Sem responsável"}</td>
-                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden ">{response.modalidade.nome_modalidade}</td>
-                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden ">{response.informacoes.quantidade}</td>
-                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden ">{response.time.status === "0" ? "Inativo" : "Ativo"}</td>
-                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden ">
-                                                <button
-                                                    onClick={() => handleJogadoresModal(response.informacoes.jogadores, response.time.id)}
-                                                    className="bg-unifae-gray-3 text-white p-2 rounded-lg ">Ver
-                                                    jogadores
-                                                </button>
+                                            <td className="p-5">
+                                                {response.time.foto_time == null ?
+                                                    <img className={" md:w-10 md:h-10 rounded-full object-cover"}
+                                                        src={images.timeFoto} /> :
+                                                    <ProfileImage className={"w-10 h-10 rounded-full object-cover"}
+                                                        fotoPerfil={response.time_foto}
+                                                        alt={response.time.nome} />}
+                                            </td>
+                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden">
+                                                {response.time.nome}
+                                            </td>
+                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden">
+                                                {response.usuario.nome_responsavel ? response.usuario.nome_responsavel : "Sem responsável"}
+                                            </td>
+                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden">
+                                                {response.modalidade.nome_modalidade}
+                                            </td>
+                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden">
+                                                {response.informacoes.quantidade}
+                                            </td>
+                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden">
+                                                {response.time.status === "0" ? "Inativo" : "Ativo"}
                                             </td>
                                             <td className="p-5 flex justify-center gap-5">
+                                                <button onClick={() => handleJogadoresModal(response.informacoes.jogadores, response.time.id)}
+                                                    className="bg-unifae-gray-3 text-white p-2 rounded-lg">Ver jogadores
+                                                </button>
                                                 <button onClick={() => handleEditModal(response)}
-                                                        className="p-2 btn-edit">Editar
+                                                    className="p-2 btn-edit">Editar
                                                 </button>
                                                 <button onClick={() => handleDeleteTime(response.time.id)}
-                                                        className={`p-2 btn-delete`}>Excluir
+                                                    className={`p-2 btn-delete`}>Excluir
                                                 </button>
                                                 <button onClick={() => handleInativarTime(response)}
-                                                        className={`p-2 ${response.time.status === "0" ? 'btn-confirm' : 'btn-delete'}`}>{`${response.time.status === "0" ? 'Ativar' : 'Inativar'}`}</button>
+                                                    className={`p-2 ${response.time.status === "0" ? 'btn-confirm' : 'btn-delete'}`}>{`${response.time.status === "0" ? 'Ativar' : 'Inativar'}`}
+                                                </button>
                                             </td>
                                         </tr>
-                                    ))
-                                }
-
-                            </Table.Body>
-                        </Table.Root>
-                    </div> : <div className="flex flex-col h-1/2 justify-evenly items-center w-full ">
-                        <p className="h-72 flex items-center"> {idResponsavel ? "Você ainda não é responsável por nenhum time" : "Ainda não há times cadastrados no sistema"}</p>
-                    </div>}
-                <Paginate currentPage={currentPage} handlePageChange={handlePageChange} lastPage={lastPage}/>
-            </div>
+                                    ))}
+                                </Table.Body>
+                            </Table.Root>
+                        </Display.Main>
+                        <Paginate currentPage={currentPage} handlePageChange={handlePageChange} lastPage={lastPage} />
+                    </>
+                ) : (
+                    <p>Não há times cadastrados no sistema</p>
+                )}
+            </Display.Root>
 
         </>
     )
