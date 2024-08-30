@@ -59,6 +59,9 @@ export const Times = ({idResponsavel}) => {
         fetchData();
         setLoading(false)
     }, [jogadores, modalidades])
+
+    console.log(modalidades)
+
     const handleEditModal = (time) => {
         setEditTimes(time)
         setIsEditAlertOpen(true)
@@ -328,7 +331,7 @@ export const Times = ({idResponsavel}) => {
             })
     }
 
-    const handleChangeFilter = () => setPaginateUrl(idResponsavel ? `/paginate/times/${idResponsavel}/${filterRef.current.value}` : `/paginate/times/${idResponsavel}/${filterRef.current.value}`)
+    const handleChangeFilter = () => setPaginateUrl(idResponsavel ? `/paginate/times/${idResponsavel}/${filterRef.current.value}` : `/paginate/times/${filterRef.current.value}`)
 
     return (
         <>

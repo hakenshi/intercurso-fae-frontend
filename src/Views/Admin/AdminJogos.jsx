@@ -247,7 +247,7 @@ export const AdminJogos = () => {
                         <div className='flex flex-col items-center'>
                             <div className='flex justify-around w-full mb-4'>
                                 <div className='text-center'>
-                                    <h3 className='text-lg mb-1'>{editPlacar.times.time1.nome}</h3>
+                                    <h3 className='text-sm max-w-40 mb-1'>{editPlacar.times.time1.nome}</h3>
                                     <button onClick={e => increasePlcar(e, 'placar_time_1')}
                                             className='bg-sky-500 rounded-lg m-2 text-white p-2 w-10 h-10'>
                                         <FontAwesomeIcon icon={faPlus}/></button>
@@ -260,7 +260,7 @@ export const AdminJogos = () => {
                                 <div className='flex items-center justify-center text-2xl text-unifae-gray-2/50'>
                                     <p>VS</p></div>
                                 <div className='text-center'>
-                                    <h3 className='text-lg mb-1'>{editPlacar.times.time2.nome}</h3>
+                                    <h3 className='text-sm max-w-40 mb-1'>{editPlacar.times.time2.nome}</h3>
                                     <button onClick={e => increasePlcar(e, 'placar_time_2')}
                                             className='bg-sky-500 rounded-lg m-2 text-white p-2 w-10 h-10'>
                                         <FontAwesomeIcon icon={faPlus}/></button>

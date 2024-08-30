@@ -93,19 +93,17 @@ export default function Jogos() {
                         <ButtonCategoria onClick={() => setCategoira("3")} icon={faVolleyball} text={"Vôleibol"} />
                         <ButtonCategoria onClick={() => setCategoira("4")} icon={faHandDots} text={"Handebol"} />
                         <ButtonCategoria onClick={() => setCategoira("5")} icon={faBasketball} text={"Basquete"} />
-                        <ButtonCategoria onClick={() => setCategoira("6")} icon={faTableTennisPaddleBall}
-                            text={"Mesa"} />
                     </div>
                 </div>
 
                 <div className="w-full flex md:flex-row flex-col items-center justify-center gap-5">
                     <select onChange={handleChangeJogos} className="border border-collapse border-black w-11/12 md:w-96 p-3 rounded-lg bg-white">
-                        <option value="">Escolha um filtro</option>
+                        <option value="">Todos os jogos</option>
                         <option value="0">Encerrados</option>
                         <option value="1">Próximos Jogos</option>
                     </select>
                     <select onChange={handleChangeGenero} className="border border-collapse border-black w-11/12 md:w-96 p-3 rounded-lg bg-white">
-                        <option value="">Escolha um Gênero</option>
+                        <option value="">Todos os gêneros</option>
                         <option value="0">Masculino</option>
                         <option value="1">Feminino</option>
                     </select>
