@@ -40,6 +40,12 @@ export const UserInfo = ({ nome, logout, foto, tipo }) => {
     const cursoRef = useRef(null)
     const handleImageChange = (e) => {
         const file = e.target.files[0]
+        
+        if(file.size >= 2 * Math.pow(1024,2)){
+            alert("O tamanho da imagem excede 2MB")
+            return
+        }
+
         setProfileImage(file ? URL.createObjectURL(file) : null)
     }
 
@@ -53,7 +59,7 @@ export const UserInfo = ({ nome, logout, foto, tipo }) => {
             confirmSenhaRef.current.value = ''
             return
         }
-
+        
         const formData = new FormData()
         formData.append("nome", nomeRef.current ? nomeRef.current.value : user.nome)
         formData.append("email", emailRef.current ? emailRef.current.value : user.email)

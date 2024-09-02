@@ -61,8 +61,6 @@ export const Times = ({ idResponsavel }) => {
         setLoading(false)
     }, [jogadores, modalidades])
 
-    console.log(modalidades)
-
     const handleEditModal = (time) => {
         setEditTimes(time)
         setIsEditAlertOpen(true)
@@ -107,6 +105,7 @@ export const Times = ({ idResponsavel }) => {
 
         const jogadorExistente = editJogadores.some(jogador => jogador.id_usuario === novoJogador);
 
+
         if (jogadorExistente) {
             alert("Esse aluno já está no time.");
             return;
@@ -116,7 +115,7 @@ export const Times = ({ idResponsavel }) => {
             id_modalidade: modalidadeAtualId,
             quantidade_participantes: quantidade
         } = data.find(time => time.time.id === timeId).modalidade;
-
+    
         const { nome } = modalidades.find(modalidade => modalidade.id === modalidadeAtualId);
 
         const jogadorComModalidadeDuplicada = data.some(time =>
@@ -135,7 +134,7 @@ export const Times = ({ idResponsavel }) => {
             alert(`${aluno.nome} já pertence a um time com a modalidade ${timeDuplicado.modalidade.nome_modalidade}`);
             return;
         }
-
+        
         if (editJogadores.length >= quantidade) {
             alert(`Quantidade máxima de jogadores na modalidade ${nome} é de ${quantidade}. O time está cheio.`);
             return;
@@ -264,15 +263,6 @@ export const Times = ({ idResponsavel }) => {
                     setEditJogadores(j => j.filter(item => item.id !== id))
 
                     fetchData()
-
-                    // setTimes(t => t.map(time => time.informacoes.jogadores.some(jogador => jogador.id === id) ? ({
-                    //     ...time,
-                    //     informacoes: {
-                    //         ...time.informacoes,
-                    //         jogadores: time.informacoes.jogadores.filter(jogador => jogador.id !== id),
-                    //         quantidade: time.informacoes.quantidade - 1,
-                    //     }
-                    // }) : time))
                 })
                 .catch(error => {
                     const response = error.response
@@ -299,8 +289,6 @@ export const Times = ({ idResponsavel }) => {
                     alert(`Time ${times.time.status === '1' ? "inativado" : "ativado"} com sucesso`)
 
                     fetchData()
-
-                    // setTimes(t => t.map(time => time.time.id === times.time.id ? {...time, ...data.data} : time))
 
                 })
                 .catch(error => {

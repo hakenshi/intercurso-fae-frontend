@@ -48,7 +48,7 @@ export default function Layout({links, children}) {
                     <Aside ref={asideRef} links={links} isAsideVisible={isAsideVisible}/>
                 </AsideContext.Provider>
                 <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"}`}>
-                    <main className="flex flex-col justify-center items-center w-screen md:w-full">
+                    <main className="flex flex-col justify-start items-center w-screen md:w-full">
                         {children}
                     </main>
                 </div>
