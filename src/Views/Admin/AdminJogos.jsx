@@ -443,9 +443,6 @@ export const AdminJogos = ({ isMobile }) => {
                                                         {jogador.nome}
                                                 </td>
                                                 <td className="px-4 py-4 whitespace-nowrap">
-                                                    {jogador.email}
-                                                </td>
-                                                <td className="px-4 py-4 whitespace-nowrap">
                                                     {jogador.ra}
                                                 </td>
                                             </tr>
