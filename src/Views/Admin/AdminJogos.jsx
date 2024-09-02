@@ -440,10 +440,6 @@ export const AdminJogos = ({ isMobile }) => {
                                             )): times.time2.jogadores.map((jogador, index) => (
                                                 <tr key={index} className="text-sm">
                                                 <td className="px-4 py-4 whitespace-nowrap">
-                                                    <ProfileImage className="w-10 h-10 object-cover rounded-full"
-                                                              fotoPerfil={jogador.foto_perfil}/>
-                                                </td>
-                                                <td className="px-4 py-4 whitespace-nowrap">
                                                         {jogador.nome}
                                                 </td>
                                                 <td className="px-4 py-4 whitespace-nowrap">
