@@ -13,6 +13,7 @@ import {ProfileImage} from "../Components/ProfileImage";
 import {Notficacao} from "../Components/Notficacao";
 import {useClickOutSide} from "../Components/hooks/useClickOutside";
 import {Navbar} from "../Components/Navbar/Navbar";
+import Layout from "../Components/Layout";
 
 // Criando o contexto
 const AsideContext = createContext();
@@ -33,44 +34,10 @@ const userLinks = [
 
 
 export default function DefaultLayout({isMobile}) {
-    const [isAsideVisible, setIsAsideVisible] = useState(!isMobile);
-    const {user, setUser, setSessionToken} = useStateContext()
-
-    const asideRef = useClickOutSide(() => {
-        if(isMobile && isAsideVisible){
-            setIsAsideVisible(false)
-        }
-    })
-    const navigate = useNavigate()
-
-    const toggleAsideVisibility = () => {
-        setIsAsideVisible(a => !a);
-    };
-
-    const onLogout = (e) => {
-        e.preventDefault()
-        axiosInstance.post('/logout')
-            .then(() => {
-                setUser({})
-                setSessionToken(null)
-                navigate("/login", {replace: true})
-            })
-    }
     return (
-        <div className="flex flex-col">
-            <Navbar tipo={"/responsavel"} foto={user.foto_perfil} id={user.id} isMobile={isMobile} nome={user.nome}
-                    onLogout={onLogout} toggleAsideVisibility={toggleAsideVisibility}/>
-            <div className="flex">
-                <AsideContext.Provider value={{isAsideVisible, toggleAsideVisibility}}>
-                    <Aside ref={asideRef} links={userLinks} isAsideVisible={isAsideVisible}/>
-                </AsideContext.Provider>
-                <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"} max-h-[92.4vh] overflow-clip`}>
-                    <main className="flex justify-center items-center md:w-full w-screen">
-                        <Outlet/>
-                    </main>
-                </div>
-            </div>
-        </div>
+        <Layout links={userLinks}>
+            <Outlet />
+        </Layout>
     );
 }
 

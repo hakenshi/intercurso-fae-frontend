@@ -6,6 +6,7 @@ import axiosInstance from "../helper/axios-instance";
 import {Aside} from "../Components/Aside/Aside";
 import {Navbar} from "../Components/Navbar/Navbar";
 import { useClickOutSide } from "../Components/hooks/useClickOutside";
+import Layout from "../Components/Layout";
 
 // Criando o contexto
 const AsideContext = createContext();
@@ -29,46 +30,10 @@ const responsavelLinks = [
     },
 ]
 export default function ResponsavelLayout({isMobile}) {
-    const [isAsideVisible, setIsAsideVisible] = useState(!isMobile);
-    const {user, setUser, setSessionToken} = useStateContext()
-
-    const asideRef = useClickOutSide(() => {
-        if(isMobile && isAsideVisible){
-            setIsAsideVisible(false)
-        }
-    })
-
-    const navigate = useNavigate()
-
-    const toggleAsideVisibility = () => {
-        setIsAsideVisible(a => !a);
-    };
-
-    const onLogout = (e) => {
-        e.preventDefault()
-        axiosInstance.post('/logout')
-            .then(() => {
-                setUser({})
-                setSessionToken(null)
-                navigate("/login", {replace: true})
-            })
-    }
-        
 
     return (
-        <div className="flex flex-col">
-            <Navbar tipo={"/responsavel"} foto={user.foto_perfil} id={user.id} isMobile={isMobile} nome={user.nome}
-                    onLogout={onLogout} toggleAsideVisibility={toggleAsideVisibility}/>
-            <div className="flex">
-                <AsideContext.Provider value={{isAsideVisible, toggleAsideVisibility}}>
-                    <Aside ref={asideRef} links={responsavelLinks} isAsideVisible={isAsideVisible}/>
-                </AsideContext.Provider>
-                <div className={`${isAsideVisible ? "flex-grow" : "flex-grow-0"} max-h-[92.4vh] overflow-clip`}>
-                    <main className="flex justify-center items-center md:max-w-full max-w-screen">
-                        <Outlet/>
-                    </main>
-                </div>
-            </div>
-        </div>
+        <Layout links={responsavelLinks}>
+            <Outlet/>
+        </Layout>
     );
 }

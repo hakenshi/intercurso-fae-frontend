@@ -411,7 +411,8 @@ export const Times = ({ idResponsavel }) => {
                         }
 
                         {editJogadores && editJogadores.length > 0 ? (
-                            <table className="w-full table-auto divide-y divide-gray-200">
+                            <div className="max-h-96 overflow-y-auto">
+                                <table className="w-full table-auto divide-y divide-gray-200">
                                 <thead className="bg-unifae-green-4">
                                     <tr className="text-center">
                                         <th scope="col"
@@ -438,46 +439,46 @@ export const Times = ({ idResponsavel }) => {
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {editJogadores.map((jogador, index) => (
-                                        <tr key={index}>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <ProfileImage className="w-10 h-10 object-cover rounded-full"
-                                                    fotoPerfil={jogador.foto_perfil} />
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                {jogador.nome}
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                {jogador.email}
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                {jogador.ra}
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                {setStatus(jogador.status)}
-                                            </td>
-                                            {isEditing && (
-                                                <td className="px-6 py-4 whitespace-nowrap flex gap-6">
-                                                    {/* <button type="button" onClick={() => handleInativarJogador(jogador)} className={`btn-sm ${jogador.status === "1" ? 'btn-delete' : 'btn-confirm'}`}>
-                                                        {setStatus(jogador.status)}
-                                                    </button> */}
-                                                    {jogador.status === "2" &&
-                                                        <button onClick={() => handleEnviarConvite(jogador)}
-                                                            className="btn-green w-10 h-10 text-xl text-center">
-                                                            <FontAwesomeIcon aria-label="enviar novo convite"
-                                                                icon={faArrowsRotate} /></button>}
-
-                                                    <button type="button" onClick={() => handleDeleteJogador(jogador.id)}
-                                                        className={`btn-sm btn-delete`}>
-                                                        Retirar
-                                                    </button>
+                                    <tbody className="bg-white divide-y divide-gray-200 max-h-32 overflow-y-scroll" >
+                                        {editJogadores.map((jogador, index) => (
+                                            <tr key={index}>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <ProfileImage className="w-10 h-10 object-cover rounded-full"
+                                                        fotoPerfil={jogador.foto_perfil} />
                                                 </td>
-                                            )}
-                                        </tr>
-                                    ))}
-                                </tbody>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    {jogador.nome}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    {jogador.email}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    {jogador.ra}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    {setStatus(jogador.status)}
+                                                </td>
+                                                {isEditing && (
+                                                    <td className="px-6 py-4 whitespace-nowrap flex gap-6">
+                                                        {/* <button type="button" onClick={() => handleInativarJogador(jogador)} className={`btn-sm ${jogador.status === "1" ? 'btn-delete' : 'btn-confirm'}`}>
+                                                            {setStatus(jogador.status)}
+                                                        </button> */}
+                                                        {jogador.status === "2" &&
+                                                            <button onClick={() => handleEnviarConvite(jogador)}
+                                                                className="btn-green w-10 h-10 text-xl text-center">
+                                                                <FontAwesomeIcon aria-label="enviar novo convite"
+                                                                    icon={faArrowsRotate} /></button>}
+                                                        <button type="button" onClick={() => handleDeleteJogador(jogador.id)}
+                                                            className={`btn-sm btn-delete`}>
+                                                            Retirar
+                                                        </button>
+                                                    </td>
+                                                )}
+                                            </tr>
+                                        ))}
+                                    </tbody>
                             </table>
+                            </div>
                         ) : (
                             !isEditing && <div className="w-full h-[10vh] flex justify-center items-center">
                                 <p>Este time ainda não tem jogadores, clique em editar para adicioná-los!</p>
