@@ -236,10 +236,7 @@ export const AdminJogos = ({ isMobile }) => {
 
     const handleTimesModal = (times) => {      
         
-        // console.log(times.time1)
-
-        // return
-        
+    
         setIsOpen('times')
         setTimes(times)
     }
@@ -249,7 +246,6 @@ export const AdminJogos = ({ isMobile }) => {
     }
         
 
-    console.log(jogos)
 
     return (
         <>
@@ -416,6 +412,12 @@ export const AdminJogos = ({ isMobile }) => {
                                         <option value="time1">{times.time1.nome}</option>
                                         <option value="time2">{times.time2.nome}</option>
                                     </select>
+                                    <p>Contagem de jogadores: {
+                                    !isVisible ? 
+                                    times.time1.jogadores.filter(jogador => jogador.status === "Ativo").length
+                                    : 
+                                    times.time2.jogadores.filter(jogador => jogador.status === "Ativo").length
+                                    }</p>
                                 </div>
                             <div className="py-5 px-4 sm:px-6 lg:px-8">
                                 <div className="max-w-sm md:max-w-screen-lg max-h-96 overflow-scroll">
@@ -431,11 +433,17 @@ export const AdminJogos = ({ isMobile }) => {
                                                     className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
                                                     RA
                                                 </th>
+                                                <th scope="col"
+                                                    className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                                                    Status
+                                                </th>
 
                                             </tr>
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200">
-                                            {!isVisible ? times.time1.jogadores.map((jogador, index) => (
+                                            {!isVisible ? times.time1.jogadores
+                                            .filter(jogador => jogador.status === "Ativo")
+                                            .map((jogador, index) => (
                                             <tr key={index} className="text-sm">
                                                 <td className="px-4 py-4 whitespace-nowrap">
                                                         {jogador.nome}
@@ -444,14 +452,22 @@ export const AdminJogos = ({ isMobile }) => {
                                                 <td className="px-4 py-4 whitespace-nowrap">
                                                     {jogador.ra}
                                                 </td>
+                                                <td className="px-4 py-4 whitespace-nowrap">
+                                                    {jogador.status}
+                                                </td>
                                             </tr>
-                                            )): times.time2.jogadores.map((jogador, index) => (
+                                            )): times.time2.jogadores
+                                            .filter(jogador => jogador.status === "Ativo")
+                                            .map((jogador, index) => (
                                                 <tr key={index} className="text-sm">
                                                 <td className="px-4 py-4 whitespace-nowrap">
                                                         {jogador.nome}
                                                 </td>
                                                 <td className="px-4 py-4 whitespace-nowrap">
                                                     {jogador.ra}
+                                                </td>
+                                                <td className="px-4 py-4 whitespace-nowrap">
+                                                    {jogador.status}
                                                 </td>
                                             </tr>
                                             )) }

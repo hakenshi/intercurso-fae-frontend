@@ -518,19 +518,19 @@ export const Times = ({ idResponsavel }) => {
                                                         fotoPerfil={response.time_foto}
                                                         alt={response.time.nome} />}
                                             </td>
-                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden">
+                                            <td className="p-5 text-sm sm:overflow-ellipsis md:overflow-hidden">
                                                 {response.time.nome}
                                             </td>
-                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden">
+                                            <td className="p-5 text-sm sm:overflow-ellipsis md:overflow-hidden">
                                                 {response.usuario.nome_responsavel ? response.usuario.nome_responsavel : "Sem responsável"}
                                             </td>
-                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden">
+                                            <td className="p-5 text-sm sm:overflow-ellipsis md:overflow-hidden">
                                                 {response.modalidade.nome_modalidade}
                                             </td>
-                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden">
+                                            <td className="p-5 text-sm sm:overflow-ellipsis md:overflow-hidden">
                                                 {response.informacoes.quantidade}
                                             </td>
-                                            <td className="p-5 text-sm truncate sm:overflow-ellipsis md:overflow-hidden">
+                                            <td className="p-5 text-sm sm:overflow-ellipsis md:overflow-hidden">
                                                 {response.time.status === "0" ? "Inativo" : "Ativo"}
                                             </td>
                                             <td className="p-5 flex justify-center gap-5">

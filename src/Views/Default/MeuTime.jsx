@@ -41,9 +41,9 @@ export const MeuTime = () => {
 
     function handleAceitarTime(id, id_time) {
 
-        alert('Acabou o período de incrições do intercurso, infelizmente, você não pode mais aceitar um time.\nAté o ano que vem :)')
+        // alert('Acabou o período de incrições do intercurso, infelizmente, você não pode mais aceitar um time.\nAté o ano que vem :)')
 
-        return
+        // return
 
         const payload = {
             status: "1"
@@ -61,9 +61,9 @@ export const MeuTime = () => {
 
     function handleRejeitarTime(id, id_time) {
 
-        alert('Acabou o período de incrições do intercurso, infelizmente, você não pode mais reijeitar um time.\nAté o ano que vem :)')
+        // alert('Acabou o período de incrições do intercurso, infelizmente, você não pode mais reijeitar um time.\nAté o ano que vem :)')
 
-        return
+        // return
 
         const payload = {
             status: "2"
