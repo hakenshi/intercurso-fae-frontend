@@ -234,7 +234,12 @@ export const AdminJogos = ({ isMobile }) => {
         setUrl(`/paginate/jogos/${filterRef.current.value}`)
     }
 
-    const handleTimesModal = (times) => {        
+    const handleTimesModal = (times) => {      
+        
+        // console.log(times.time1)
+
+        // return
+        
         setIsOpen('times')
         setTimes(times)
     }
@@ -243,6 +248,9 @@ export const AdminJogos = ({ isMobile }) => {
         setIsVisible(v => !v)
     }
         
+
+    console.log(jogos)
+
     return (
         <>
             {isOpen?.type === 'confirm' && <AlertConfirm isOpen={true} onClose={() => setIsOpen(false)} text={mensagem} onConfirm={() => handleDelete(isOpen.id)} />}
@@ -410,7 +418,7 @@ export const AdminJogos = ({ isMobile }) => {
                                     </select>
                                 </div>
                             <div className="py-5 px-4 sm:px-6 lg:px-8">
-                                <div className="max-w-sm md:max-w-screen-lg overflow-x-scroll">
+                                <div className="max-w-sm md:max-w-screen-lg max-h-96 overflow-scroll">
                                     <table className="min-w-full divide-y divide-gray-200">
                                         <thead className="bg-unifae-green-4">
                                             <tr className="text-center">

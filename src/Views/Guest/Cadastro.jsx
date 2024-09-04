@@ -107,9 +107,9 @@ export default function Cadastro() {
         
         e.preventDefault()
 
-        alert('As inscrições acabaram!\nQue peninha :c ')
+        // alert('As inscrições acabaram!\nQue peninha :c ')
 
-        return
+        // return
 
         if (
             !cursoRef.current.value ||
