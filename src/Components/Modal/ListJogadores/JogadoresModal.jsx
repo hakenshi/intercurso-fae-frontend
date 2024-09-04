@@ -10,7 +10,7 @@ export const JogadoresModal = ({ data, isOpen, handleClose }) => {
                 <Modal.Default texto={"Jogadores"}>
                     <div className="py-5 px-4 sm:px-6 lg:px-8">
                         {data && data.length > 0 &&
-                            <div className="max-w-sm md:max-w-screen-lg overflow-x-scroll">
+                            <div className="max-w-sm md:max-w-screen-lg max-h-96 overflow-y-scroll overflow-x-scroll">
                                 <table className="min-w-full divide-y divide-gray-200">
                                     <thead className="bg-unifae-green-4">
                                     <tr className="text-center">

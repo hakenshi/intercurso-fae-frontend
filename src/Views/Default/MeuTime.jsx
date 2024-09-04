@@ -40,6 +40,11 @@ export const MeuTime = () => {
     }
 
     function handleAceitarTime(id, id_time) {
+
+        alert('Acabou o período de incrições do intercurso, infelizmente, você não pode mais aceitar um time.\nAté o ano que vem :)')
+
+        return
+
         const payload = {
             status: "1"
         }
@@ -55,6 +60,11 @@ export const MeuTime = () => {
     }
 
     function handleRejeitarTime(id, id_time) {
+
+        alert('Acabou o período de incrições do intercurso, infelizmente, você não pode mais reijeitar um time.\nAté o ano que vem :)')
+
+        return
+
         const payload = {
             status: "2"
         }
@@ -89,7 +99,7 @@ export const MeuTime = () => {
                     <h1 className='text-center p-5 text-3xl font-medium'>Meus Times</h1>
                     
                   
-                    <div className='max-h-[80vh] flex flex-col gap-2 overflow-y-scroll w-full'>
+                    <div className='max-h-[80vh] flex flex-col gap-2 overflow-y-scroll md:w-[1000px]'>
                     <div className='flex justify-between text-center bg-unifae-green-1 text-white p-2 w-full max-w-screen-sm md:max-w-screen-2xl rounded'>
                         <div className='p-2 text-sm md:text-base flex-1 md:p-5'>Nome do time</div>
                         <div className='p-2 text-sm md:text-base flex-1 md:p-5'>Responsavel</div>

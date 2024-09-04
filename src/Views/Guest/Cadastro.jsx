@@ -104,7 +104,13 @@ export default function Cadastro() {
     };
 
     const handleForm = e => {
+        
         e.preventDefault()
+
+        alert('As inscrições acabaram!\nQue peninha :c ')
+
+        return
+
         if (
             !cursoRef.current.value ||
             !nomeRef.current.value ||

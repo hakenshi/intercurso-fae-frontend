@@ -10,7 +10,8 @@ aside {
     height: calc(100vh - 72px);
 }
 main{
-   height: calc(100vh - 72px);
+   max-height: calc(100vh - 72px);
+   overflow-y: hidden
 }
 .check-box {
     @apply relative h-5 w-5 shrink-0 appearance-none rounded-sm border;

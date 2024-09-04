@@ -90,6 +90,11 @@ export const Times = ({ idResponsavel }) => {
     }
 
     const handleAddJogador = () => {
+
+        alert('Acabou o período de inscrições do intercurso, que pena.\nAté o ano que vem!')
+
+        return
+
         if (!novoJogador) {
             alert("Por favor, escolha um aluno");
             return;
@@ -212,6 +217,11 @@ export const Times = ({ idResponsavel }) => {
                 })
                 .finally(() => setIsEditAlertOpen(false))
         } else {
+
+            alert('Acabou o período de inscrições do intercurso, que pena.\nAté o ano que vem!')
+
+            return
+
             axiosInstance.post('/times', payload)
                 .then(({ data }) => {
                     if (data) {

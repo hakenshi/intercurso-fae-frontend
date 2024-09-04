@@ -5,15 +5,24 @@ import { handleError } from "../../utils/handleError";
 import { Loading } from "../../Components/Loading";
 import {
     faBasketball,
+    faChess,
     faFutbol,
     faGlobe,
     faHandDots,
     faHeadset,
-    faTableTennisPaddleBall,
+    faHeart,
     faVolleyball
 } from "@fortawesome/free-solid-svg-icons";
+
+import { faHeart as faHeartHollow } from "@fortawesome/free-regular-svg-icons"
+
 import { motion } from "framer-motion";
 import { ButtonCategoria } from "../../Components/Buttons/ButtonCategoria";
+import { useAlert } from "../../Components/hooks/useAlert";
+import { Modal } from "../../Components/Modal";
+import { ModalDefault } from "../../Components/Modal/ModalDefault";
+import { images } from "../../assets";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Jogos() {
 
@@ -24,6 +33,12 @@ export default function Jogos() {
     const [categoria, setCategoira] = useState(null)
     const [genero, setGenero] = useState(null)
     const [title, setTitle] = useState("")
+    const { setIsAlertOpen, isAlertOpen } = useAlert()
+    const [torcida, setTorcida] = useState([{
+        times: null,
+        jogo: null,
+        likes: null,
+    }])
 
     const filteredJogos = jogos.filter(({ jogo, modalidade }) => {
         const statusFilter = status === "0" ? jogo.status === 0
@@ -40,7 +55,7 @@ export default function Jogos() {
         const fetchJogos = () => {
             axiosInstance.get("/jogos")
                 .then(({ data }) => {
-                    if(data.data.length > 0){
+                    if (data.data.length > 0) {
                         setJogos(data.data)
                     }
                 })
@@ -48,8 +63,8 @@ export default function Jogos() {
         }
         const fetchModalidades = () => {
             axiosInstance.get("/modalidades")
-                .then(({ data }) => {                    
-                    if(data.data.length > 0){
+                .then(({ data }) => {
+                    if (data.data.length > 0) {
                         setModalidades(data.data)
                     }
                 })
@@ -78,12 +93,124 @@ export default function Jogos() {
         setGenero(e.target.value)
     }
 
+    const handleSetTorcida = (time, jogo, likes) => {
+        setIsAlertOpen(true)
+        setTorcida({
+            times: time,
+            jogo: jogo,
+            likes: likes
+        })
+    }
+    
+    const handleLike = (time, id_jogo) => {
+        
+        axiosInstance.post('/likes/store',{
+            id_time: time,
+            id_jogo: id_jogo
+        })
+        .then(({data}) => {
+
+            if(data.message){
+                alert(data.message)
+                return
+            }
+            
+            setTorcida(t => ({
+                ...t,
+                likes: {
+                    ...data
+                }
+            }))
+
+            setJogos(j => j.map(jogo => {
+                if(jogo.jogo.id === id_jogo){
+                    return({
+                        ...jogo,
+                        jogo: {
+                            ...jogo.jogo,
+                            likes: {
+                                ...data
+                            }
+                        }
+                    })
+                }
+                return jogo
+            }))
+            
+        })
+        .catch(e => handleError(e))        
+    }
     if (loading) {
         return <Loading />
     }
-
+    
     return (
         <>
+
+            {isAlertOpen && (
+                <Modal.Root onClose={() => {
+                    setIsAlertOpen(false)
+                    setTorcida([])
+                }} isOpen={isAlertOpen}>
+                    <Modal.Default>
+                        <h2 className="text-center text-3xl font-medium mb-5">Torcidômetro</h2>
+                        <motion.div
+                            className="flex w-full md:min-w-[700px] space-x-5 gap-5 justify-center md:justify-evenly p-5 bg-gradient-to-tr from-unifae-green-1 to-unifae-green-3 rounded-lg shadow-lg"
+                            initial={{ opacity: 0, scale: 1 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.4 }}
+                        >
+                            <motion.div
+                                className="flex flex-col items-center text-3xl text-unifae-white-1"
+                            >
+                                <div className="relative">
+                                    <motion.img
+                                        className="w-32 h-32 md:w-48 md:h-48 border-4 border-unifae-green-4 rounded-full shadow-md"
+                                        src={images.timeFoto}
+                                        alt=""
+                                    />
+                                </div>
+                                <p className="mt-3 font-semibold truncate max-w-32 md:max-w-72">{torcida.times.time1.nome}</p>
+                                <motion.p
+                                    onClick={() => handleLike(torcida.times.time1.id, torcida.jogo)}
+                                    className="text-center text-2xl mt-2 bg-unifae-gray-2 text-unifae-white-1 px-4 py-2 rounded-full shadow-inner hover:cursor-pointer"
+                                    whileHover={{
+                                        scale: 1.05
+                                    }}
+                                >
+                                    <FontAwesomeIcon icon={faHeartHollow} />
+                                    <p>{torcida.likes.likes_time_1}</p>
+                                </motion.p>
+                            </motion.div>
+                            <motion.div
+                                className="flex flex-col items-center text-3xl text-unifae-white-1"
+                            >
+                                <div className="relative">
+                                    <motion.img
+                                        className="w-32 h-32 md:w-48 md:h-48 border-4 border-unifae-green-4 rounded-full shadow-md"
+                                        src={images.timeFoto}
+                                        alt=""
+                                    />
+                                </div>
+                                <p className="mt-3 font-semibold truncate max-w-32 md:max-w-72">{torcida.times.time2.nome}</p>
+                                <motion.p
+                                    onClick={() => handleLike(torcida.times.time2.id, torcida.jogo)}
+                                    className="text-center text-2xl mt-2 bg-unifae-gray-2 text-unifae-white-1 px-4 py-2 rounded-full shadow-inner hover:cursor-pointer"
+                                    whileHover={{
+                                        scale: 1.05,
+                                    }}
+                                >
+                                    <FontAwesomeIcon icon={faHeartHollow} />
+                                    <p>{torcida.likes.likes_time_2}</p>
+                                </motion.p>
+                            </motion.div>
+                        </motion.div>
+                    </Modal.Default>
+                </Modal.Root>
+
+
+            )}
+
             <div className="w-full flex flex-col items-center">
                 <div className="md:w-2/3 flex flex-col gap-3 p-5 mt-5 justify-center items-center">
                     <div className="flex w-full md:w-1/2 items-center justify-around gap-3 md:gap-0">
@@ -118,9 +245,8 @@ export default function Jogos() {
                                     transition={{ duration: 0.5 }}
                                     key={jogo.id}>
                                     {jogo.status === 1 ? (
-                                        <Card.Root>
-                                            <Card.TimeDefault modalidade={modalidade.nome} times={times}
-                                                genero={modalidade.genero} />
+                                        <Card.Root onClick={() => handleSetTorcida(times, jogo.id, jogo.likes)} >
+                                            <Card.TimePlacar modalidade={modalidade} times={times} placar={placar} />
                                             <div className="p-2 mt-0">
                                                 <Card.Local local={jogo.local} />
                                                 <Card.Info data={`${jogo.data_jogo}, ${jogo.hora_jogo}`} />
