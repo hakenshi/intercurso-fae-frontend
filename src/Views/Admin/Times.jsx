@@ -91,9 +91,9 @@ export const Times = ({ idResponsavel }) => {
 
     const handleAddJogador = () => {
 
-        // alert('Acabou o período de inscrições do intercurso, que pena.\nAté o ano que vem!')
+        alert('Acabou o período de inscrições do intercurso, que pena.\nAté o ano que vem!')
 
-        // return
+        return
 
         if (!novoJogador) {
             alert("Por favor, escolha um aluno");
