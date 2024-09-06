@@ -140,7 +140,10 @@ export default function Jogos() {
         })
         .catch(e => handleError(e))        
     }
-
+    if (loading) {
+        return <Loading />
+    }
+    
     return (
         <>
 
@@ -232,8 +235,7 @@ export default function Jogos() {
                         <option value="1">Feminino</option>
                     </select>
                 </div>
-                {loading ? <Loading /> : (
-                    jogos.length > 0 ? <><h2 className="text-center p-2 text-3xl uppercase font font-bold">{title ? title : "Jogos do Intercurso"}</h2>
+                {jogos.length > 0 ? <><h2 className="text-center p-2 text-3xl uppercase font font-bold">{title ? title : "Jogos do Intercurso"}</h2>
                     <div className="flex flex-col max-h-[65vh] overflow-y-scroll rounded-md">
                         <div className="p-5 flex justify-center gap-5 flex-wrap md:max-w-screen-xl">
                             {filteredJogos.map(({ jogo, modalidade, placar, times }) => (
@@ -262,7 +264,7 @@ export default function Jogos() {
                             )}
                         </div>
                     </div>
-                </> : <div className="p-5"><h2>Nenhum jogo foi marcado ainda</h2></div>)}
+                </> : <div className="p-5"><Loading /></div>}
             </div>
         </>
     )
