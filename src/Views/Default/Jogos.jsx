@@ -140,10 +140,7 @@ export default function Jogos() {
         })
         .catch(e => handleError(e))        
     }
-    if (loading) {
-        return <Loading />
-    }
-    
+
     return (
         <>
 
@@ -235,7 +232,7 @@ export default function Jogos() {
                         <option value="1">Feminino</option>
                     </select>
                 </div>
-                {loading ? <Loading />: (
+                {loading ? <Loading /> : (
                     jogos.length > 0 ? <><h2 className="text-center p-2 text-3xl uppercase font font-bold">{title ? title : "Jogos do Intercurso"}</h2>
                     <div className="flex flex-col max-h-[65vh] overflow-y-scroll rounded-md">
                         <div className="p-5 flex justify-center gap-5 flex-wrap md:max-w-screen-xl">
