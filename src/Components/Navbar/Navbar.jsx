@@ -25,8 +25,10 @@ export const Navbar = ({isMobile, toggleAsideVisibility, id, onLogout, nome, fot
                     )}
                 </div>
                 <div className="flex justify-center items-center gap-7">
-                    <Notficacao id={id}/>
-                    <UserInfo tipo={tipo} logout={onLogout} nome={nome} foto={foto}/>
+                    {id && <>
+                        <Notficacao id={id}/>
+                        <UserInfo tipo={tipo} logout={onLogout} nome={nome} foto={foto}/>
+                        </>}
                 </div>
             </nav>
         </header>

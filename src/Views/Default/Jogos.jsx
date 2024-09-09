@@ -76,7 +76,7 @@ export default function Jogos() {
             fetchModalidades()
             setLoading(false)
         }
-    }, [])
+    }, [jogos.length, modalidades.length])
 
 
     const handleChangeJogos = e => {

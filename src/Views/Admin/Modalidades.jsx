@@ -34,8 +34,35 @@ export const Modalidades = () => {
     const [isEditAlertOpen, setIsEditAlertOpen] = useState(false);
     const [editModalidade, setEditModalidade] = useState(null)
     const [categoria, setCategoria] = useState([]);
-    // const [loading, setLoading] = useState(true);
-    // const [erros, setErrors] = useState(null);
+    const [selected, setSelected] = useState([])
+    const [selectAll, setSelectAll] = useState(false)
+
+
+    const handleCheckAllBoxes = (e) => {
+        const isChecked = e.target.checked
+        setSelectAll(isChecked)
+            
+        if(isChecked){
+            const allIds = (input.trim() !== '' ? results : modalidades).map(item => item.id)            
+            setSelected(allIds)
+        }
+        else{
+            setSelected([])
+        }
+
+    }
+
+    const handleCheckBox = (isChecked, name) => {
+        if(isChecked){
+            setSelected( s => [...s, name])
+                }
+        else{
+            setSelected(selected.filter(item => item !== name))
+        }
+    }
+    
+    console.log(selected)
+
     useEffect(() => {
         axiosInstance.get('/categoria')
             .then(({ data }) => setCategoria(data))
@@ -200,10 +227,22 @@ export const Modalidades = () => {
                     {loading ? (<Loading />) :
                         (modalidades.length > 0 ?
                             <Table.Root>
-                                <Table.Head titles={['Nome', 'Categoria', 'Participantes', 'Gênero', 'Data de adição', "", ""]} />
+                                <thead className="bg-unifae-green-4 rounded-xl text-white w-full">
+                                    <tr className="text-center">
+                                        <th className="p-3"><input checked={selectAll} onChange={handleCheckAllBoxes} type="checkbox"  /></th>
+                                        <th className="p-3">Modalidae</th>
+                                        <th className="p-3">Categoria</th>
+                                        <th className="p-3">Quantidade de participantes</th>
+                                        <th className="p-3">Gênero</th>
+                                        <th className="p-3">Data</th>
+                                        <th className="p-3"></th>
+                                        <th className="p-3"></th>
+                                    </tr>
+                                </thead>
                                 <Table.Body>
                                     {(input.trim() !== "" ? results : modalidades).map(response => (
                                         <tr key={response.id} className="text-center">
+                                            <td className="p-5"><input checked={selected.includes(response.id)} onChange={(e) => handleCheckBox(e.target.checked, response.id)} type="checkbox" /></td>
                                             <td className="p-5 truncate">{response.nome}</td>
                                             <td className="p-5 truncate">{capitalize(response.categoria.nome)}</td>
                                             <td className="p-5 truncate">{response.quantidade_participantes}</td>

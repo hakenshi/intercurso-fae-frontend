@@ -20,6 +20,7 @@ import { images } from '../../assets'
 import { JogadoresModal } from '../../Components/Modal/ListJogadores/JogadoresModal'
 import { ProfileImage } from '../../Components/ProfileImage'
 import { data } from 'autoprefixer'
+import ButtonCsv from '../../Components/Buttons/ButtonCsv'
 
 export const AdminJogos = ({ isMobile }) => {
 
@@ -483,14 +484,14 @@ export const AdminJogos = ({ isMobile }) => {
 
             <Display.Root title={"Jogos"}>
                 <Display.ActionsRoot>
-                    <Display.ActionsModal setIsModalOpen={() => setIsOpen(() => 'cadastro')} text={"Cadastrar Jogo"}>
-                    </Display.ActionsModal>
+                    <Display.ActionsModal setIsModalOpen={() => setIsOpen(() => 'cadastro')} text={"Cadastrar Jogo"}/>
                     <select ref={filterRef} onChange={handleChangeFilter} className="p-2 rounded bg-white border border-unifae-green-1" name="modalidade" id="modalidade">
                         <option value="0">Escolha uma modalidade...</option>
                         {modalidades.map(modalidade => (
                             <option key={modalidade.id} value={modalidade.id}>{modalidade.nome}</option>
                         ))}
                     </select>
+                        <ButtonCsv modalidades={modalidades} />
                 </Display.ActionsRoot>
                 {loading ? (<Loading />) : jogos.length > 0 ? (<>
                     <Display.Main>

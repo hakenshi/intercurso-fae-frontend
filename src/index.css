@@ -5,7 +5,9 @@
 body{
     max-height: 100vh;
 }
-
+header{
+ height: 72px;
+}
 aside {
     height: calc(100vh - 72px);
 }
