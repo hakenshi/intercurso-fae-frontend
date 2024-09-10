@@ -2,18 +2,22 @@ import { createElement } from 'react'
 import axiosInstance from '../../helper/axios-instance'
 import { handleError } from '../../utils/handleError'
 
-export default function ButtonCsv() {
+export default function ButtonCsv({times}) {
+
+
 
     const exportExcel = () => {
-        axiosInstance.get('/jogos/export')
+        axiosInstance.post('/export', times, {responseType:'blob '})
         .then(response => {
+
+            console.log(response.data);
+
             const url = window.URL.createObjectURL(new Blob([response.data]))
             const link = document.createElement('a')
             link.href = url
-            link.setAttribute('download', 'jogos.xlsx')
+            link.setAttribute('download', 'jogos.csv')
             document.body.appendChild(link)
             link.click()
-
             window.URL.revokeObjectURL(url)
         }).catch(e => console.log(e.message))
 

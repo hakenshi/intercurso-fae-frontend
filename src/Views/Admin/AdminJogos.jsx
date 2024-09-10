@@ -475,7 +475,7 @@ export const AdminJogos = ({ isMobile }) => {
                                         </tbody>
                                     </table>
                                 </div>
-
+                            <ButtonCsv times={!isVisible ? times.time1 : times.time2} />
                             </div>
                         </div>
                     </Modal.Default>
@@ -491,7 +491,6 @@ export const AdminJogos = ({ isMobile }) => {
                             <option key={modalidade.id} value={modalidade.id}>{modalidade.nome}</option>
                         ))}
                     </select>
-                        <ButtonCsv modalidades={modalidades} />
                 </Display.ActionsRoot>
                 {loading ? (<Loading />) : jogos.length > 0 ? (<>
                     <Display.Main>
