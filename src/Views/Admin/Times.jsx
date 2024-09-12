@@ -14,6 +14,7 @@ import { Loading } from "../../Components/Loading"
 import usePagiante from "../../Components/hooks/usePaginate.jsx";
 import { Paginate } from "../../Components/Paginate.jsx";
 import { Display } from "../../Components/Display/index.jsx"
+import ButtonCsv from "../../Components/Buttons/ButtonCsv.jsx";
 
 export const Times = ({ idResponsavel }) => {
 
@@ -26,8 +27,6 @@ export const Times = ({ idResponsavel }) => {
     const nomeRef = useRef(null)
     const modalidadeRef = useRef(null)
     const responsavelRef = useRef(null)
-
-
 
     // const [times, setTimes] = useState(null);
     const [timeId, setTimeId] = useState(null);
@@ -533,6 +532,11 @@ export const Times = ({ idResponsavel }) => {
                                             <td className="p-5 text-sm sm:overflow-ellipsis md:overflow-hidden">
                                                 {response.time.status === "0" ? "Inativo" : "Ativo"}
                                             </td>
+
+                                            <td>
+                                                <ButtonCsv times={response.time} />
+                                            </td>
+
                                             <td className="p-5 flex justify-center gap-5">
                                                 <button onClick={() => handleJogadoresModal(response.informacoes.jogadores, response.time.id)}
                                                     className="bg-unifae-gray-3 text-white p-2 rounded-lg">Ver jogadores

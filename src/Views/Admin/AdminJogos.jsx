@@ -475,7 +475,6 @@ export const AdminJogos = ({ isMobile }) => {
                                         </tbody>
                                     </table>
                                 </div>
-                            <ButtonCsv times={!isVisible ? times.time1 : times.time2} />
                             </div>
                         </div>
                     </Modal.Default>
